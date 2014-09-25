@@ -61,6 +61,8 @@
     <Compile Include="Infrastructure\Interfaces\IQuestionaires.cs" />
     <Compile Include="Infrastructure\Repositories\FeedBackRepository.cs" />
     <Compile Include="Infrastructure\Repositories\QuestionRepository.cs" />
+    <Compile Include="Managers\FeedbackManager.cs" />
+    <Compile Include="Managers\QuestionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
