@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,5 +13,8 @@ namespace Medacs.Core.Entities
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
+		public DateTime LastLoginDateTime { get; set; }
+		public DateTime InviteDateTime { get; set; }
+	
 	}
 }

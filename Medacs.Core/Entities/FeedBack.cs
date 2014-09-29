@@ -13,5 +13,6 @@ namespace Medacs.Core.Entities
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
 		public bool IsOpen { get; set; }
+		public Organization Organization { get; set; }
 	}
 }

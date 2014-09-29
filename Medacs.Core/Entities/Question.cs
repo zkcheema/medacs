@@ -9,9 +9,12 @@ namespace Medacs.Core.Entities
 	public class Question
 	{
 		public Guid Id { get; set; }
+		public string QuestionName { get; set; }
 		public string QuestionText { get; set; }
-		public string QuestionType { get; set; }
-		public virtual FeedBack FeedBack { get; set; }
-
+		public string QuestionSubText { get; set; }
+		public bool AnswerRequired { get; set; }
+		public virtual InputType InputType { get; set; }
+		public virtual OptionGroup OptionGroup { get; set; }
+		public virtual FeedBackSection FeedBackSection { get; set; }
 	}
 }

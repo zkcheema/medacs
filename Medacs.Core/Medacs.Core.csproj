@@ -50,9 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\FeedBack.cs" />
-    <Compile Include="Entities\FeedBackQuestion.cs" />
-    <Compile Include="Entities\FeedBackQuestionAnswer.cs" />
-    <Compile Include="Entities\OfferedAnswer.cs" />
+    <Compile Include="Entities\FeedBackHeader.cs" />
+    <Compile Include="Entities\FeedBackQuestionOption.cs" />
+    <Compile Include="Entities\FeedBackSection.cs" />
+    <Compile Include="Entities\InputType.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\OptionChoices.cs" />
+    <Compile Include="Entities\OptionGroup.cs" />
+    <Compile Include="Entities\Organization.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Infrastructure\DataContext\IMedacsDbContext.cs" />

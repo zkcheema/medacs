@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Medacs.Core.Entities
 {
-	public class OfferedAnswer
+	public class Organization
 	{
 		public Guid Id { get; set; }
-		public string AnswerText { get; set; }
+		public string OrganizationName { get; set; }
+
 	}
 }

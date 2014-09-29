@@ -12,10 +12,15 @@ namespace Medacs.Core.Infrastructure.DataContext
 	public interface IMedacsDbContext
 	{
 	
-	    	IDbSet<FeedBack> FeedBacks { get; }
-		 IDbSet<FeedBackQuestion> FeedBackQuestions { get;}
-		 IDbSet<FeedBackQuestionAnswer> FeedBackQuestionAnswers { get;}
-		IDbSet<OfferedAnswer> OfferedAnswers { get; }
+	    IDbSet<FeedBack> FeedBacks { get; }
+		IDbSet<FeedBackHeader> FeedBackHeaders { get; }
+		 IDbSet<FeedBackSection> FeedBackSections{ get;}
+		 IDbSet<InputType> InputTypes{ get;}
+		 IDbSet<OptionChoices> OptionChoices{ get;}
+		 IDbSet<OptionGroup> OptionGroups{ get;}
+		 IDbSet<Organization> Organizations{ get;}
+		 IDbSet<FeedBackQuestionOption> FeedBackQuestionOptions { get; }
+		IDbSet<Answer> Answers { get; }
 		IDbSet<Question> Questions { get; }
 		 IDbSet<User> Users { get; }
 		 Database Database { get; }

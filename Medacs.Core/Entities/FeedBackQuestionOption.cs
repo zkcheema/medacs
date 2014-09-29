@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Medacs.Core.Entities
 {
-	public class FeedBackQuestion
+	public class FeedBackQuestionOption
 	{
 		public Guid Id { get; set; }
-		public virtual FeedBack FeedBack { get; set; }
-		public virtual Question Question { get; set; }
+		public Question Question { get; set; }
+	
+		public OptionChoices OptionChoices { get; set; }
 	}
 }
