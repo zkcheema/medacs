@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,14 +38,135 @@ namespace Medacs.Core.Infrastructure.Repositories
 			throw new NotImplementedException();
 		}
 
-		public FeedBack GetBack()
+		public List<FeedBack> GetFeedBacks()
 		{
-			throw new NotImplementedException();
+			return DbContext.FeedBacks.Select(a => a).ToList();
 		}
 
 		public FeedBack GetFeedBackbyId(Guid id)
 		{
 			throw new NotImplementedException();
 		}
+
+		public FeedBack GetFeedBackById(Guid id)
+		{
+			return DbContext.FeedBacks.Include(a=>a.FeedBackSection).Select(fb=>fb).FirstOrDefault(a=>a.Id.Equals(id));
+		}
+
+		public void AddFeedBackSection(FeedBackSection feedBackSection)
+		{
+			try
+			{
+				DbContext.FeedBackSections.Add(feedBackSection);
+				DbContext.SaveChanges();
+			}
+			catch (Exception exception)
+			{
+				throw new Exception("Uaable to Add FeedBackSecstion",exception);
+			}
+		}
+
+		public List<FeedBackSection> GetFeedBackSection(Guid id)
+		{
+		var result	=from fs in DbContext.FeedBackSections.Include(q=>q.Questions)
+			where fs.FeedBackId == id
+			select fs;
+			return result.ToList();
+
+		}
+
+		public Guid AddOptionGroup(OptionGroup optionGroup)
+		{
+			try
+			{
+				DbContext.OptionGroups.Add(optionGroup);
+				DbContext.SaveChanges();
+				return optionGroup.Id;
+			}
+			catch (Exception exception)
+			{
+
+				throw new Exception("Uaable to Add Option Group", exception); ;
+			}
+			
+
+		}
+
+		public void AddInputTypes(InputType inputType)
+		{
+			try
+			{
+				var inputTypeExist =DbContext.InputTypes.Select(a => a.InputTypeName.Equals(inputType.InputTypeName)).FirstOrDefault();
+				if(!inputTypeExist)
+				DbContext.InputTypes.Add(inputType);
+
+			}
+			catch (Exception exception)
+			{
+
+				throw new Exception("Uaable to Add inputTypes", exception); 
+			}
+		}
+
+		public void OptionChoices(List<OptionChoices> optionChoicesList)
+		{
+			try
+			{
+				foreach (var optionChoice in optionChoicesList)
+				{
+					DbContext.OptionChoices.Add(optionChoice);
+					DbContext.SaveChanges();
+				}
+
+			}
+			catch (Exception exception)
+			{
+
+				throw new Exception("Uaable to Add Option Choices", exception); 
+			}
+			}
+
+		public List<OptionGroup> GetOptionGroups()
+		{
+			return  DbContext.OptionGroups.Select(a => a).ToList();
+		}
+
+		public List<InputType> GetInputTypes()
+		{
+			return DbContext.InputTypes.Select(a => a).ToList();
+		}
+
+		public void AddQuestion(Question question)
+		{
+			try
+			{
+				DbContext.Questions.Add(question);
+				DbContext.SaveChanges();
+
+			}
+			catch (Exception exception)
+			{
+				throw new Exception("Uaable to Add Questions", exception); 
+				
+			}
+		}
+
+		public List<Question> GetQuestionBySection(Guid id)
+		{
+
+
+			var result = from fb in DbContext.FeedBacks.Include(a => a.FeedBackSection)
+				join fbs in DbContext.FeedBackSections on fb.Id equals fbs.FeedBackId
+				where fb.Id.Equals(id)
+				select fb.FeedBackSection;
+
+
+			return null;
+		
+					
+			
+
+		}
 	}
-}
+	}
+

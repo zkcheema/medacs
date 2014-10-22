@@ -175,19 +175,30 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\FeedBackController.cs" />
     <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\FeedBackHeaderViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\FeedBackSectionViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\FeedBackViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\EditViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\OptionGroupViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\QuestionViewModel.cs" />
+    <Compile Include="Configure\FeedBackConfigure.cs" />
+    <Compile Include="Configure\InputTypeName.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="InputType.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\FeedBackViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\Angular\Controller\FeedBack.js" />
+    <Content Include="Areas\Admin\Scripts\Angular\Service\FeedBackService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -201,6 +212,13 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Index\Index.cshtml" />
     <Content Include="Areas\Admin\Views\FeedBack\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBack\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\FeedBackHeader.cshtml" />
+    <Content Include="Areas\Admin\Views\FeedBack\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\FeedBackSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\FeedBackSectionList.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AddQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\OptionGroup.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -240,9 +258,12 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Feeback.cshtml" />
+    <Content Include="Views\Survey\FeedBackView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\FeedBack\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

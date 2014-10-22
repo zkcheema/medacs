@@ -1,0 +1,68 @@
+﻿
+<form name="optionGroupForm" novalidate>
+    <fieldset id="Assign OptionGroup">
+        <legend>Option Group</legend>
+        <div>
+            <div>
+                <label class="control-label" for="codesstandalone">OptionGroupName</label>
+                <div class="controls">
+                    <input type="text" id="OptionName" name="OptionName" ng-model="optionGroupForm.OptionGroupName" placeholder="Option GroupName" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="fromdatestandaloneInd">Input Type</label>
+                <div class="controls">
+
+                    <select ng-model="optionGroupForm.InputTypeName" ng-options="item.id as item.name for item in items"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div>
+                        <label class="control-label" for="fromdatestandaloneInd">Question choices</label>
+                        <ul>
+                            <li ng-repeat="elemnt in questionelemnt">
+
+                                <div>
+                                    <div id={{elemnt.id}} style="display:inline">
+                                        <span ng-model="elemnt.question" ng-hide="editorEnabled" ng-click="editorEnabled=true">
+                                            {{elemnt.question}}
+                                        </span>
+                                        <div ng-show="editorEnabled">
+                                            <input ng-model="elemnt.question" ng-show="editorEnabled">
+                                            <button href="#" ng-click="editorEnabled=false">Done editing</button>
+                                        </div>
+                                    </div>
+                                    <div style="display:inline">
+                                        <span>
+                                            <input type="text" ng-model="elemnt.OptionChoiceName" placeholder="Answer" required />
+                                        </span>
+                                    </div>
+                                    <span>
+                                        <input ng-click="inlinef($event,elemnt.id)" type="checkbox" ng-model="elemnt.inline" placeholder="Answer" required>Inline</input>
+                                    </span>
+                                    <span ng-hide="elemnt.length == 1">
+                                        <a href ng-click="questionelemnt.splice($index, 1)">remove</a>
+                                    </span>
+                                </div>
+                                <hr />
+                            </li>
+                            <li>
+                                <a href ng-click="newItem($event)">Add Choices</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <input type="button" ng-click="AddoptionGroup($event,optionGroupForm)" id="submit" value="Add OptionGroup" class="btn" />
+                    </div>
+                    <div id="displayitems" style="visibility:hidden;">
+                        {{questionelemnt}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </fieldset>
+</form>
+

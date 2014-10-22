@@ -4,57 +4,45 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
+<form name="FeedBack" novalidate>
     <div class="form-horizontal">
-        <h4>FeedBackViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true)
+        <h4>FeedBack</h4>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="codesstandalone">Name</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
+                <input type="text" id="Name" name="FeedBackDescription" ng-model="FeedBack.Description" placeholder="Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">StartDateTime</label>
+            <div class="col-md-10">
+                <input type="text" id="FeedBackStartDate" name="FeedBackStartDateTime" ng-model="FeedBack.StartDateTime" placeholder="StartDateTime" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">EndDateTime</label>
+            <div class="col-md-10">
+                <input type="text" id="FeedBackEndDate" name="FeedBackEndDateTime" ng-model="FeedBack.EndDateTime" placeholder="EndDateTime" />
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StartDateTime, new { @class = "control-label col-md-2" })
+                        <label class="control-label col-md-2" for="codesstandalone">IsOpen</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDateTime)
-                @Html.ValidationMessageFor(model => model.StartDateTime)
+                <input type="checkbox" id="FeedBackIsOpen" name="FeedBackOpen" ng-model="FeedBack.IsOpen" placeholder="IsOpen" />
+
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDateTime, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDateTime)
-                @Html.ValidationMessageFor(model => model.EndDateTime)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsOpen, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsOpen)
-                @Html.ValidationMessageFor(model => model.IsOpen)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+               <div class="form-group">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="button" class="btn btn-primary" ng-click="AddFeedBack(FeedBack)" id="submit" value="Create FeedBack" class="btn" />
         </div>
     </div>
-}
+
+</form>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List","FeedBack")
 </div>

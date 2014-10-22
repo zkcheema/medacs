@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Medacs.Areas.Admin.Models.ViewModel.FeedBackViewModel>
+
+@{
+    ViewBag.Title = "List of FeedBack";
+}
+
+<h2>List Of FeedBack</h2>
+
+<p>
+  @Html.ActionLink("CreateNew", "CreateFeedBack", "FeedBack", new { area = "Admin" }, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Name
+        </th>
+        <th>
+            StartDateTime
+                </th>
+        <th>
+           EndDateTime 
+        </th>
+        <th>
+            IsOpen
+                </th>
+        <th></th>
+    </tr>
+
+    
+
+    <tr ng-repeat=" feedBack in feedBackList">
+        <td>
+            <a href='/Admin/FeedBack/Edit/{{feedBack.Id}}'>{{feedBack.Description}}</a>
+        </td>
+        <td>
+            {{feedBack.StartDateTime}}
+        </td>
+        <td>
+            {{feedBack.EndDateTime}}
+        </td>
+        <td>
+            {{feedBack.IsOpen}}
+        </td>
+        <td>
+            <a href='/Admin/FeedBack/Edit/{{feedBack.Id}}'>Edit</a> |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+
+
+</table>

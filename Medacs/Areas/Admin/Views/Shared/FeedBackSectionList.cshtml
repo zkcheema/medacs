@@ -1,0 +1,26 @@
+﻿
+<p>
+    <a id="FeedBackSection" data-toggle="modal" href='#ViewFeedBackSectionModal'>New Section</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+    Section Name
+           </th>
+        <th>
+            Section Title
+        </th>
+        <th>
+            Section Required
+          </th>
+        </tr>
+    <tr ng-repeat=" section in feedBackSectionList">
+        <td><a id="{{section.Id}}" href='/Admin/FeedBack/AddQuestion?id={{section.Id}}' class="btn"> {{section.SectionName}}</a></td>
+        <td>{{section.SectionTitle}}</td>
+        <td>{{section.SectionRequired}}</td>
+        <td>
+            <a id="{{section.Id}}" href='/Admin/FeedBack/AddQuestion?id={{section.Id}}' class="btn"> Edit</a>
+        </td>
+    </tr>
+
+</table>

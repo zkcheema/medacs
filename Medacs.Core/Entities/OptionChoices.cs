@@ -10,6 +10,7 @@ namespace Medacs.Core.Entities
 	{
 		public Guid Id { get; set; }
 		public string OptionChoiceName { get; set; }
+		public Guid OptionGroupId { get; set; }
 		public OptionGroup OptionGroup { get; set; }
 
 	}

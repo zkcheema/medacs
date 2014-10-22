@@ -12,7 +12,24 @@ namespace Medacs.Core.Infrastructure.Interfaces
 		void AddFeedBack(FeedBack feedBack);
 		bool DeleteFeedBack(Guid id);
 		void UpdateFeedBack(FeedBack feedBack);
-		FeedBack GetBack();
+		List<FeedBack> GetFeedBacks();
 		FeedBack GetFeedBackbyId(Guid id);
+		FeedBack GetFeedBackById(Guid id);
+		void AddFeedBackSection(FeedBackSection feedBackSection);
+
+
+		List<FeedBackSection> GetFeedBackSection(Guid id);
+
+		Guid AddOptionGroup(OptionGroup optionGroup);
+
+		void AddInputTypes(InputType inputType);
+		void OptionChoices(List<OptionChoices> optionChoicesList);
+		List<OptionGroup> GetOptionGroups();
+
+
+		List<InputType> GetInputTypes();
+
+		void AddQuestion(Question question);
+		List<Question> GetQuestionBySection(Guid id);
 	}
 }

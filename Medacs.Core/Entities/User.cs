@@ -15,6 +15,8 @@ namespace Medacs.Core.Entities
 		public string Email { get; set; }
 		public DateTime LastLoginDateTime { get; set; }
 		public DateTime InviteDateTime { get; set; }
+
+		public FeedBack FeedBack { get; set; }
 	
 	}
 }

@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Medacs.Core.Entities
+namespace Medacs.Areas.Admin.Models
 {
-	public class FeedBackHeader
+	public class FeedBackHeaderViewModel
 	{
 		public Guid Id { get; set; }
 		public string FeedBackName { get; set; }
 		public string Instruction { get; set; }
 		public string OtherInformation { get; set; }
-		public FeedBack FeedBack { get; set; }
-		
-
 	}
 }

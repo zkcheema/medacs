@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Medacs.Core.Entities
+namespace Medacs.Areas.Admin.Models.ViewModel
 {
-	public class Question
+	public class QuestionViewModel
 	{
 		public Guid Id { get; set; }
 		public string QuestionName { get; set; }
 		public string QuestionText { get; set; }
 		public string QuestionSubText { get; set; }
 		public bool AnswerRequired { get; set; }
-
+		
 		public Guid InputTypeId { get; set; }
-		public virtual InputType InputType { get; set; }
 		public Guid OptionGroupId{get; set; }
-		public virtual OptionGroup OptionGroup { get; set; }
 		public Guid FeedBackSectionId { get; set; }
-		public virtual FeedBackSection FeedBackSection { get; set; }
+		
+
 	}
 }

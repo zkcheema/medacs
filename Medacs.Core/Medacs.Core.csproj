@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\FeedBack.cs" />
-    <Compile Include="Entities\FeedBackHeader.cs" />
     <Compile Include="Entities\FeedBackQuestionOption.cs" />
     <Compile Include="Entities\FeedBackSection.cs" />
     <Compile Include="Entities\InputType.cs" />
@@ -70,7 +69,6 @@
     <Compile Include="Managers\QuestionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

@@ -23,6 +23,12 @@ namespace Medacs
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+	        bundles.Add(new ScriptBundle("~/bundles/medacsAdminScripts").Include(
+					"~/Areas/Admin/Scripts/Angular/Service/FeedBackService.js",
+		        "~/Areas/Admin/Scripts/Angular/Controller/FeedBack.js"
+			
+				));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

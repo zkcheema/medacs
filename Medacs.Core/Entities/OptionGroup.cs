@@ -10,5 +10,6 @@ namespace Medacs.Core.Entities
 	{
 		public Guid Id { get; set; }
 		public string OptionGroupName { get; set; }
+		public  virtual ICollection<OptionChoices> OptionChoices { get; set; }
 	}
 }

@@ -13,8 +13,7 @@ namespace Medacs.Core.Infrastructure.DataContext
 	{
 	
 	    IDbSet<FeedBack> FeedBacks { get; }
-		IDbSet<FeedBackHeader> FeedBackHeaders { get; }
-		 IDbSet<FeedBackSection> FeedBackSections{ get;}
+		IDbSet<FeedBackSection> FeedBackSections{ get;}
 		 IDbSet<InputType> InputTypes{ get;}
 		 IDbSet<OptionChoices> OptionChoices{ get;}
 		 IDbSet<OptionGroup> OptionGroups{ get;}

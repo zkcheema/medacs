@@ -1,0 +1,58 @@
+﻿@model Medacs.Areas.Admin.Models.ViewModel.QuestionViewModel
+
+@{
+    Html.RenderPartial("OptionGroup");
+}
+
+<form name="QestionForm" novalidate>
+    <input type="hidden"  name="FeedBackSectionId" value="@Model.FeedBackSectionId" /> 
+    <div class="form-horizontal">
+        <h4>Questions</h4>
+    <div>
+        <label class="control-label">Question Name</label>
+            <div >
+                <input type="text" id="QuestionName" name="Name" ng-model="QestionForm.QuestionName" placeholder="Question Name" />
+            </div>
+        </div>
+        <div>
+            <label class="control-label">Question Text</label>
+            <div>
+                <input type="text" id="QuestionText" name="Text" ng-model="QestionForm.QuestionText" placeholder="Question Text" />
+            </div>
+        </div>
+        <div>
+            <label class="control-label">Question SubText</label>
+        </div>
+            <div >
+                <input type="text" id="QuestionSubText" name="SubText" ng-model="QestionForm.QuestionSubText" placeholder="Question SubText" />
+            </div>
+        </div>
+    <div>
+        <label class="control-label" for="fromdatestandaloneInd">InputTypes </label>
+        <div class="controls">
+            <select ng-model="QestionForm.InputTypeId" ng-options="Input.Id as Input.InputTypeName for Input in InputType"></select>
+        </div>
+    </div>
+    <div>
+        <label class="control-label" for="fromdatestandaloneInd"> Option Group </label>
+        <div class="controls">
+            <select ng-model="QestionForm.OptionGroupId" ng-options="option.Id as option.OptionGroupName for option in OptionGroup"></select>
+        </div>
+    </div>
+    <div >
+            <label class="control-label">Answer Required</label>
+            <div >
+                <input type="checkbox" id="AnswerRequired" name="AnswerRequired" ng-model="QestionForm.AnswerRequired" placeholder="Question SubText" />
+            </div>
+        </div>
+       
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" ng-click="AddQestion(QestionForm)" id="submit" value="Add Question" class="btn" />
+        </div>
+    </div>
+    
+</form>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

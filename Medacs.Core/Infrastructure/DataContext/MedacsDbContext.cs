@@ -17,7 +17,6 @@ namespace Medacs.Core.Infrastructure.DataContext
         { }
 
 		public IDbSet<FeedBack> FeedBacks { get; set; }
-		public IDbSet<FeedBackHeader> FeedBackHeaders { get; set; }
 		public IDbSet<FeedBackSection> FeedBackSections { get; set; }
 		public IDbSet<InputType> InputTypes { get; set; }
 		public IDbSet<OptionChoices> OptionChoices { get; set; }
@@ -34,7 +33,6 @@ namespace Medacs.Core.Infrastructure.DataContext
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<FeedBack>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-			modelBuilder.Entity<FeedBackHeader>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<FeedBackSection>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<InputType>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<OptionChoices>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
