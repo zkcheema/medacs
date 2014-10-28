@@ -15,7 +15,6 @@ namespace Medacs.Core.Entities
 		public string Instruction { get; set; }
 		public string FeedBackName { get; set; }
 		public string OtherInformation { get; set; }
-
 		public bool IsOpen { get; set; }
 		public virtual Organization Organization { get; set; }
 		public virtual ICollection<FeedBackSection> FeedBackSection { get; set; }

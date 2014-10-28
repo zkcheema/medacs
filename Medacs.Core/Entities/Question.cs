@@ -13,7 +13,6 @@ namespace Medacs.Core.Entities
 		public string QuestionText { get; set; }
 		public string QuestionSubText { get; set; }
 		public bool AnswerRequired { get; set; }
-
 		public Guid InputTypeId { get; set; }
 		public virtual InputType InputType { get; set; }
 		public Guid OptionGroupId{get; set; }

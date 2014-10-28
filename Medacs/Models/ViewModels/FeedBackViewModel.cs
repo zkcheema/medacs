@@ -14,5 +14,8 @@ namespace Medacs.Models.ViewModels
 		public string StartDateTime { get; set; }
 		public string EndDateTime { get; set; }
 		public bool IsOpen { get; set; }
+
+
+
 	}
 }

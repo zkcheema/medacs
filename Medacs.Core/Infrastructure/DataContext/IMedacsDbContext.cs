@@ -22,6 +22,9 @@ namespace Medacs.Core.Infrastructure.DataContext
 		IDbSet<Answer> Answers { get; }
 		IDbSet<Question> Questions { get; }
 		 IDbSet<User> Users { get; }
+		 IDbSet<FeedBackUser> FeedBackUsers { get; }
+		 IDbSet<RevalidationTimeline>RevalidationTimelines{ get; }
+		 IDbSet<RevalidationDetail> RevalidationDetails { get; }
 		 Database Database { get; }
 		 int SaveChanges();
 		

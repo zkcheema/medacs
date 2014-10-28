@@ -1,4 +1,4 @@
-﻿
+﻿@model Medacs.Core.Entities.FeedBack
 
 @{
     Layout = null;
@@ -8,7 +8,7 @@
 
 <html>
     <head>
-        <title>"Placeholder" SurVey</title>
+        <title>Colleague SurVey</title>
         
     </head>
     <body>
@@ -18,12 +18,54 @@
         </div>
         <table style="border:1px solid black;">
             <tr>
-
-                <td>Place holder/ For FeedBack Description </td>
+                <td>@Html.Raw(@Model.Instruction) </td>
             </tr>
-
         </table>
+        <table>
+          @{
+              int count = 0;
+              foreach (var question in Model.FeedBackSection.SelectMany(feedbak => feedbak.Questions))
+              {
+                  <tr>
+                      @if (count < question.OptionGroup.OptionChoices.Count)
+                      {
+                          foreach (var option in question.OptionGroup.OptionChoices)
+                          {
+                              count = count + 1;
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td> @option.OptionChoiceName</td>
+                          }
+                      }
+                    
+                  </tr>
+                  <tr>
+                      <td>
+                          @question.QuestionName
+                      </td>
+                      @foreach (var option in question.OptionGroup.OptionChoices)
+                      {
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><input type="@question.InputType.InputTypeName" /></td>
+                      }
+                  </tr>
+              }
+          }
+       </table>
+
+    
+        
+
 
         
-           </body>
+    </body>
 </html>

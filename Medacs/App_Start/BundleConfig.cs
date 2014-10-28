@@ -11,6 +11,7 @@ namespace Medacs
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -24,6 +25,8 @@ namespace Medacs
                       "~/Scripts/respond.js"));
 
 	        bundles.Add(new ScriptBundle("~/bundles/medacsAdminScripts").Include(
+					"~/Scripts/tinymce/jquery.tinymce.min.js",
+					"~/Areas/Admin/Scripts/TinymceConfiguration.js",
 					"~/Areas/Admin/Scripts/Angular/Service/FeedBackService.js",
 		        "~/Areas/Admin/Scripts/Angular/Controller/FeedBack.js"
 			

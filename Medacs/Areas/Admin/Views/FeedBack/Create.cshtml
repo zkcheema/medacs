@@ -4,6 +4,7 @@
     ViewBag.Title = "Create";
 }
 
+
 <form name="FeedBack" novalidate>
     <div class="form-horizontal">
         <h4>FeedBack</h4>
@@ -26,11 +27,17 @@
                 <input type="text" id="FeedBackEndDate" name="FeedBackEndDateTime" ng-model="FeedBack.EndDateTime" placeholder="EndDateTime" />
             </div>
         </div>
-
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">Instruction</label>
+            <div class="col-md-10">
+                <input type="text" id="Name" name="FeedBackInstruction" ng-model="FeedBack.Instruction" placeholder="Instruction" class="mceEditor" />
+            </div>
+        </div>
+        
         <div class="form-group">
                         <label class="control-label col-md-2" for="codesstandalone">IsOpen</label>
             <div class="col-md-10">
-                <input type="checkbox" id="FeedBackIsOpen" name="FeedBackOpen" ng-model="FeedBack.IsOpen" placeholder="IsOpen" />
+                <input type="checkbox" id="FeedBackIsOpen" name="FeedBackOpen" ng-model="FeedBack.IsOpen" placeholder="IsOpen"  />
 
             </div>
         </div>

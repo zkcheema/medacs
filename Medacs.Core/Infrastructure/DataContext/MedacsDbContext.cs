@@ -22,13 +22,13 @@ namespace Medacs.Core.Infrastructure.DataContext
 		public IDbSet<OptionChoices> OptionChoices { get; set; }
 		public IDbSet<OptionGroup> OptionGroups { get; set; }
 		public IDbSet<Organization> Organizations { get; private set; }
-		
 		public IDbSet<FeedBackQuestionOption> FeedBackQuestionOptions { get; set; }
 		public IDbSet<Answer> Answers { get; set; }
 		public IDbSet<Question> Questions { get; set; }
-		public IDbSet<User> Users { get; set; }
-
-
+		public IDbSet<User> Users { get;  set; }
+		public IDbSet<RevalidationTimeline> RevalidationTimelines { get; set; }
+		public IDbSet<FeedBackUser> FeedBackUsers { get; set; }
+		public IDbSet<RevalidationDetail> RevalidationDetails { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -42,8 +42,10 @@ namespace Medacs.Core.Infrastructure.DataContext
 			modelBuilder.Entity<Answer>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<Question>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<User>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
-
+			modelBuilder.Entity<RevalidationTimeline>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			modelBuilder.Entity<FeedBackUser>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			modelBuilder.Entity<RevalidationDetail>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			
 		}
 
 

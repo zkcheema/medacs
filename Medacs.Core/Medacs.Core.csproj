@@ -36,6 +36,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -52,12 +58,15 @@
     <Compile Include="Entities\FeedBack.cs" />
     <Compile Include="Entities\FeedBackQuestionOption.cs" />
     <Compile Include="Entities\FeedBackSection.cs" />
+    <Compile Include="Entities\FeedBackUser.cs" />
     <Compile Include="Entities\InputType.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\OptionChoices.cs" />
     <Compile Include="Entities\OptionGroup.cs" />
     <Compile Include="Entities\Organization.cs" />
     <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\RevalidationDetail.cs" />
+    <Compile Include="Entities\RevalidationTimeline.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Infrastructure\DataContext\IMedacsDbContext.cs" />
     <Compile Include="Infrastructure\DataContext\MedacsDbContext.cs" />
@@ -67,6 +76,7 @@
     <Compile Include="Infrastructure\Repositories\QuestionRepository.cs" />
     <Compile Include="Managers\FeedbackManager.cs" />
     <Compile Include="Managers\QuestionManager.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
