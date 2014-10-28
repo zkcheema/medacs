@@ -25,8 +25,8 @@ namespace Medacs
                       "~/Scripts/respond.js"));
 
 	        bundles.Add(new ScriptBundle("~/bundles/medacsAdminScripts").Include(
-					"~/Scripts/tinymce/jquery.tinymce.min.js",
-					"~/Areas/Admin/Scripts/TinymceConfiguration.js",
+					//"~/Scripts/tinymce/jquery.tinymce.min.js",
+					//"~/Areas/Admin/Scripts/TinymceConfiguration.js",
 					"~/Areas/Admin/Scripts/Angular/Service/FeedBackService.js",
 		        "~/Areas/Admin/Scripts/Angular/Controller/FeedBack.js"
 			
