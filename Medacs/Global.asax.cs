@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace Medacs
         protected void Application_Start()
 
         {
-
+			Database.SetInitializer<MedacsDbContext>(null);
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new RazorViewEngine());
 			var dbContent = new MedacsDbContext();

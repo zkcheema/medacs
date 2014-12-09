@@ -12,6 +12,10 @@ namespace Medacs
                         "~/Scripts/jquery-{version}.js"));
 
 
+			
+
+
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -25,13 +29,17 @@ namespace Medacs
                       "~/Scripts/respond.js"));
 
 	        bundles.Add(new ScriptBundle("~/bundles/medacsAdminScripts").Include(
-					//"~/Scripts/tinymce/jquery.tinymce.min.js",
-					//"~/Areas/Admin/Scripts/TinymceConfiguration.js",
+					
 					"~/Areas/Admin/Scripts/Angular/Service/FeedBackService.js",
-		        "~/Areas/Admin/Scripts/Angular/Controller/FeedBack.js"
-			
-				));
+					"~/Areas/Admin/Scripts/Angular/Service/AccountService.js",
+					"~/Areas/Admin/Scripts/Angular/Service/FeedBackUserService.js",
+		        "~/Areas/Admin/Scripts/Angular/Controller/FeedBack.js",
+				"~/Areas/Admin/Scripts/Angular/Controller/Question.js",
+				"~/Areas/Admin/Scripts/Angular/Controller/Account.js",
+				"~/Areas/Admin/Scripts/Angular/Controller/FeedBackUser.js"
+			));
 
+			
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

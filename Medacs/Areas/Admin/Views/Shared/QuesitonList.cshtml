@@ -1,0 +1,45 @@
+﻿
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            QuestionText
+        </th>
+            
+        
+        <th></th>
+    </tr>
+    <tr ng-repeat=" Question in QuestionList">
+        <td>
+            {{Question.QuestionName}}
+        </td>
+        <td>
+            {{Question.Text}}
+        </td>
+        
+        <td>
+            <a id="FeedBack" data-toggle="modal" href='#EditQuestion' ng-click="editFeedBack(feedBack)">Edit</a> |
+        </td>
+    </tr>
+    </table>
+
+
+<div class="modal fade" id="EditQuestion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("EditQuestion");
+                }
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

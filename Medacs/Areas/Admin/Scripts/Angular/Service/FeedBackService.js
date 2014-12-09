@@ -2,10 +2,13 @@
     
     this.GetFeedBacks= function() {
         return $http.get('/Admin/FeedBack/GetFeedBacks');
+    }   
+    this.GetQuestionBySection = function (id) {
+        return $http.get('/Admin/FeedBack/GetQuestionBySection?id='+id);
     }
 
     this.GetFeedBackSections= function (id) {
-        return $http.get('/Admin/FeedBack/GetFeedBackSections?id=' + id);
+        return $http.get('/Admin/FeedBack/GetFeedBackSections?id='+ id);
     }
 
     this.GetOptionGroup = function () {
@@ -45,12 +48,21 @@
 
     };
 
-    this.AddFeedBack = function (feedBackForm) {
+    this.AddFeedBack = function(feedBackForm) {
         return $http({
             method: 'POST',
             url: '/Admin/FeedBack/CreateFeedBack',
             data: feedBackForm,
         });
 
-    }
+      
+    };
+    this.EditFeedBack = function (feedBackForm) {
+        return $http({
+            method: 'POST',
+            url: '/Admin/FeedBack/EditFeedBack',
+            data: feedBackForm,
+        });
+
+       };
 }]);

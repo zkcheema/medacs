@@ -7,12 +7,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-
-
-
-
+    
 </head>
-<body>
+<body id="ng-app" ng-app="MedacsAdmin">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -29,7 +26,9 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <div>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
     </div>
@@ -39,9 +38,18 @@
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
+
+        <script data-require="angular.js" data-semver="1.2.8" src="http://code.angularjs.org/1.2.8/angular.js"></script>
+        <script src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+
+        <script type="text/javascript">
+            MedacsAdmin = angular.module('MedacsAdmin', []);
+        </script>
     </div>
 
-        @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/bundles/medacsAdminScripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>

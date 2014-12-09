@@ -1,65 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Medacs.Models;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace Medacs.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-        {
-			
-        }
+		public AccountController()
+			: this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+		{
 
-        public AccountController(UserManager<ApplicationUser> userManager)
-        {
-            UserManager = userManager;
-        }
+		}
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+		public AccountController(UserManager<ApplicationUser> userManager)
+		{
+			UserManager = userManager;
+
+			var provider = new DpapiDataProtectionProvider("Medacs");
+			UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, string>(provider.Create("UserToken"))
+				as IUserTokenProvider<ApplicationUser, string>;
+			UserManager.EmailService = new EmailService();
+		}
+
+		public UserManager<ApplicationUser> UserManager { get; private set; }
+       
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+	        if (!User.Identity.IsAuthenticated)
+	        {
+		        ViewBag.ReturnUrl = returnUrl;
+	        }
+	        else
+	        {
+		        return RedirectToAction("Index", "Home");
+	        }
+	        return View();
         }
 
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+		//[ValidateAntiForgeryToken]
+        public async Task<JsonResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
+        
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+					return Json(new { result="Success" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
                 }
-            }
+
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+			return Json(new { result = "failed" }, JsonRequestBehavior.AllowGet); ;
         }
 
         //
@@ -74,17 +85,43 @@ namespace Medacs.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+		//[ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
+	            string name = "user";
+				var RoleManager = new RoleManager<IdentityRole>(new
+										  RoleStore<IdentityRole>(new ApplicationDbContext()));
+				var roleresult = RoleManager.Create(new IdentityRole(name));
+	            IdentityResult result = null;
+                var user = new ApplicationUser() { UserName = model.UserName ,Email = model.UserName,Address =model.Address,PostCode = model.PostCode,FirstName = model.FirstName,LastName = model.LastName};
+
+	            result = await UserManager.CreateAsync(user, model.Password);
+				
+								
                 if (result.Succeeded)
                 {
+
+	                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+				
+				var callbackUrl = Url.Action("ConfirmEmail", "Account",new { userId = user.Id, code = code },protocol: Request.Url.Scheme);
+
+	                try
+	                {
+		                await UserManager.SendEmailAsync(user.Id, "Confirm your account",
+				                "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+	                }
+	                catch (Exception exception)
+	                {
+		                
+	                }
+
+	                // ViewBag.Link = callbackUrl;   // Used only for initial demo.
+				
+	                await UserManager.AddToRoleAsync(user.Id, name);
                     await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ConfirmPassword", "Account");
                 }
                 else
                 {
@@ -95,8 +132,77 @@ namespace Medacs.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+		[HttpGet]
+	    public ActionResult ConfirmPassword()
+	    {
+			return View();
+	    }
 
-        //
+		
+		public async Task<ActionResult> ConfirmEmail(string userId, string code)
+		{
+			if (userId == null || code == null)
+			{
+				return View("Error");
+			}
+			var result = await UserManager.ConfirmEmailAsync(userId, code);
+			if (result.Succeeded)
+			{
+				  return RedirectToAction("Index", "Home");
+			}
+			AddErrors(result);
+			return View();
+		}
+		[HttpPost]
+		[AllowAnonymous]
+		public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await UserManager.FindByNameAsync(model.Email);
+				if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+				{
+					// Don't reveal that the user does not exist or is not confirmed
+					return View("ConfirmPassword");
+				}
+
+				var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+				var callbackUrl = Url.Action("ResetPassword", "Account",
+				new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+				await UserManager.SendEmailAsync(user.Id, "Reset Password","Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+				return View("ConfirmPassword");
+			}
+
+			// If we got this far, something failed, redisplay form
+			return View(model);
+		}
+
+		
+		[AllowAnonymous]
+	    public async Task<ActionResult> ResetPassword(string userId, string code)
+	    {
+			if (userId == null || code == null)
+			{
+				return View("Error");
+			}
+			var result = await UserManager.ConfirmEmailAsync(userId, code);
+			
+			if (result.Succeeded)
+			{
+
+				var user =UserManager.FindById(userId);
+				var forgotPasswordConfirmationViewModel = new ForgotPasswordViewModel();
+				forgotPasswordConfirmationViewModel.Email = user.Email;
+				return View("ForgotPasswordConfirmation",forgotPasswordConfirmationViewModel);
+			}
+			AddErrors(result);
+			return View();
+
+		    
+	    }
+
+
+			//
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -287,7 +393,7 @@ namespace Medacs.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -337,6 +443,7 @@ namespace Medacs.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+			
         }
 
         private void AddErrors(IdentityResult result)

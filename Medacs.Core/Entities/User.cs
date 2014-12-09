@@ -9,8 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Medacs.Core.Entities
 {
-	public class User 
-
+	public class User
 	{
 		public Guid Id { get; set; }
 		public string FirstName { get; set; }
@@ -19,6 +18,7 @@ namespace Medacs.Core.Entities
 		public DateTime LastLoginDateTime { get; set; }
 		public DateTime InviteDateTime { get; set; }
 		public FeedBack FeedBack { get; set; }
+		public Guid UserInfoId { get; set; }
 	
 	}
 }

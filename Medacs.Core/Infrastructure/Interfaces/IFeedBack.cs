@@ -25,11 +25,12 @@ namespace Medacs.Core.Infrastructure.Interfaces
 		void AddInputTypes(InputType inputType);
 		void OptionChoices(List<OptionChoices> optionChoicesList);
 		List<OptionGroup> GetOptionGroups();
-
-
 		List<InputType> GetInputTypes();
 
 		void AddQuestion(Question question);
 		List<Question> GetQuestionBySection(Guid id);
+
+		string GetLatestCodeForFeedBack(Guid id);
+		int RecordLatestCode(Guid feedBackid, string nextNumber);
 	}
 }

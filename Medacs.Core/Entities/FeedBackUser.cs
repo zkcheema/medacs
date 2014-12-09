@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Medacs.Core.Entities
 {
@@ -10,6 +6,12 @@ namespace Medacs.Core.Entities
 	{
 		public Guid Id { get; set; }
 		public string Email { get; set; }
+		public string FirstName { get; set; }
+		public  string LastName { get; set; }
+		public string Profession { get; set; }
 		public string PersonalizedMessage { get; set; }
-	}
+		public string FeedbackUserGroup { get; set; }
+		public virtual User User { get; set; }
+		public virtual Guid UserId { get; set; }
+	 }
 }

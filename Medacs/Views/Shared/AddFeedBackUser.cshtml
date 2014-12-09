@@ -1,0 +1,38 @@
+﻿
+<div class="login-form-section">
+    <div ng-controller="FeedBackUser">
+        <form name="feedBackUser" novalidate class="form-horizontal">
+            <div class="modal-title">
+                <h3>Add FeedBack User</h3>
+            </div>
+                <div class="input-group">
+                    <input type="text" name="Firstname" ng-model="feedBackUser.FirstName" class="form-control " placeholder="FirstName" required />
+                    <span ng-show="feedBackUser.Firstname.$dirty && feedBackUser.Firstname.$error.required">Required!</span>
+                </div>
+   
+                <div class="input-group">
+                    <input type="text" name="Lastname" ng-model="feedBackUser.LastName" class="form-control " placeholder="LastName" required />
+                    <span ng-show="feedBackUser.Lastname.$dirty && feedBackUser.Lastname.$error.required">Required!</span>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="email" ng-model="feedBackUser.Email" placeholder="Email" class="form-control " required />
+                </div>
+            <span ng-show="feedBackUser.email.$dirty && feedBackUser.email.$invalid">
+                <span ng-show="feedBackUser.email.$error.required">Email is required.</span>
+                <span ng-show="feedBackUser.email.$error.email">Invalid email address.</span>
+            </span>
+            <span ng-show="message ==='Email Already Exist'">{{message}}</span>
+            <div class="input-group">
+                    <select ng-model="feedBackUser.Profession" ng-options="item for item in professionList" class="form-control ">
+                        <option value="">Select Profession</option>
+
+                    </select>
+                </div>
+                <input type="button" value="Add" ng-click="AddFeedBackUser(feedBackUser)" />
+                <button ng-click="reset()">RESET</button>
+           
+            
+           </form>
+    </div>
+
+</div>

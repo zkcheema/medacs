@@ -5,53 +5,79 @@
 }
 
 <h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true)
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+<div ng-controller="Account">
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+
+                <form name="LoginForm" novalidate>
+
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="codesstandalone">User Name</label>
+                        <div class="col-md-10">
+                            <input type="text" id="UserName" name="LoginUserName" ng-model="LoginForm.UserName" placeholder="Name" />
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="codesstandalone">Password</label>
+                        <div class="col-md-10">
+                            <input type="password" id="Password" name="LoginPassword" ng-model="LoginForm.Password" placeholder="Password" />
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label class="control-label col-md-2" for="codesstandalone">RememberMe</label>
+                            <div class="col-md-10">
+                                <input type="checkbox" id="RememberMe" name="LoginRememberMe" ng-model="LoginForm.RememberMe" placeholder="Name" />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Log in" ng-click="LoginUser(LoginForm)" class="btn btn-default pull-left" /> {{loginmessage}}
+                            <a href='#forgottenPassword' data-toggle="modal" class="pull-right">Forgotten password?</a>
+                        </div>
+                      
+                    </div>
+                   
+
+
+                </form>
+            </section>
+        </div>
+        
+
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="forgottenPassword">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
-                <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
-                </p>
-            }
-        </section>
+                <div class="modal-body">
+                    @{ Html.RenderPartial("ForgotPasswordEmail");}
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

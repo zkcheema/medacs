@@ -66,6 +66,9 @@ namespace Medacs
 			kernel.Bind<IMedacsDbContext>().To<MedacsDbContext>().WithConstructorArgument("databaseName", "medacs");
 			kernel.Bind<IQuestionaires>().To<QuestionRepository>();
 	        kernel.Bind<IFeedBack>().To<FeedBackRepository>();
+	        kernel.Bind<IFeedBackUser>().To<FeedBackUserRepository>();
+	        kernel.Bind<IEmail>().To<EmailRepository>();
+	        
 
         }        
     }

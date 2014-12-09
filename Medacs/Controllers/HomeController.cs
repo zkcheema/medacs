@@ -3,14 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Medacs.Models;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 
 namespace Medacs.Controllers
 {
+
+
 	public class HomeController : Controller
 	{
+
+	
 		public ActionResult Index()
 		{
-			return View();
+			var usermanager = new UserManager();
+
+			if (User.Identity.IsAuthenticated)
+
+			{
+				if (User.Identity.IsAuthenticated && usermanager.IsInRole(User.Identity.GetUserId(), "User") ||
+				    (User.IsInRole("Admin")))
+				{
+					return View();
+				}
+			}
+
+			return View("Error");
 		}
 
 		public ActionResult About()

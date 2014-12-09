@@ -1,0 +1,45 @@
+﻿
+<form name="FeedBackEdit" novalidate>
+    <div class="form-horizontal">
+        <h4>FeedBack</h4>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">Name</label>
+            <div class="col-md-10">
+                <input type="text" id="Name" name="FeedBackDescription" ng-model="FeedBackEdit.Description" placeholder="Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">StartDateTime</label>
+            <div class="col-md-10">
+                <input type="text" id="FeedBackStartDate" name="FeedBackStartDateTime" ng-model="FeedBackEdit.StartDateTime" placeholder="StartDateTime" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">EndDateTime</label>
+            <div class="col-md-10">
+                <input type="text" id="FeedBackEndDate" name="FeedBackEndDateTime" ng-model="FeedBackEdit.EndDateTime" placeholder="EndDateTime" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">Instruction</label>
+            <div class="col-md-10">
+                <input type="text" id="Name" name="FeedBackInstruction" ng-model="FeedBackEdit.Instruction" placeholder="Instruction" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="codesstandalone">IsOpen</label>
+            <div class="col-md-10">
+                <input type="checkbox" id="FeedBackIsOpen" name="FeedBackOpen" ng-model="FeedBackEdit.IsOpen" placeholder="IsOpen" />
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="button" class="btn btn-primary" ng-click="updateFeedBack(FeedBackEdit)" id="submit" value="Update FeedBack" class="btn" />
+        </div>
+    </div>
+
+</form>

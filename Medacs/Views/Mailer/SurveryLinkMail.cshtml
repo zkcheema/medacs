@@ -1,0 +1,20 @@
+﻿@model Medacs.Models.ViewModels.SurveyLinkEmailViewModel
+
+
+@{
+    ViewBag.Title = "SurveryLink";
+    Layout = null;
+}
+
+<h2 class="panel-heading pull-right">Medace360 Survery</h2>
+
+<P>Dear @Model.FeedBackUserFirstName @Model.FeedBackUserLastName Selected you to complete Survey by @Model.FirstName @Model.LastName . Please Click on the link below </P> <br>
+
+<p><a href="@Model.Url"> FeedBack Survey </a></p><br/>
+
+<p> if you are unable to open please copy and paste the Link in browser  </P><br/>
+
+<p>@Model.Url</p>
+
+
+

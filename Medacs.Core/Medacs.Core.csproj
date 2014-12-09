@@ -30,11 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Mandrill, Version=1.0.103.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Mandrill.1.0.103.0\lib\net40\Mandrill.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -42,17 +50,30 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\FeedBack.cs" />
@@ -70,18 +91,38 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Infrastructure\DataContext\IMedacsDbContext.cs" />
     <Compile Include="Infrastructure\DataContext\MedacsDbContext.cs" />
+    <Compile Include="Infrastructure\Interfaces\IEmail.cs" />
     <Compile Include="Infrastructure\Interfaces\IFeedBack.cs" />
+    <Compile Include="Infrastructure\Interfaces\IFeedBackUser.cs" />
     <Compile Include="Infrastructure\Interfaces\IQuestionaires.cs" />
+    <Compile Include="Infrastructure\Interfaces\IRevalidationDetailcs.cs" />
+    <Compile Include="Infrastructure\Repositories\EmailRepository.cs" />
     <Compile Include="Infrastructure\Repositories\FeedBackRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\FeedBackUserRepository.cs" />
     <Compile Include="Infrastructure\Repositories\QuestionRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\RevalidationDetailsRepository.cs" />
+    <Compile Include="Managers\EmailManager.cs" />
     <Compile Include="Managers\FeedbackManager.cs" />
     <Compile Include="Managers\QuestionManager.cs" />
+    <Compile Include="Managers\RevalidationDetailManager.cs" />
+    <Compile Include="Managers\SetupManager.cs" />
+    <Compile Include="Migrations\201411191913400_remaining.cs" />
+    <Compile Include="Migrations\201411191913400_remaining.Designer.cs">
+      <DependentUpon>201411191913400_remaining.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201411191913400_remaining.resx">
+      <DependentUpon>201411191913400_remaining.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

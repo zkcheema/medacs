@@ -39,6 +39,16 @@ namespace Medacs.Areas.Admin.Controllers
 			return View("Create");
 		}
 
+
+		public JsonResult EditFeedBack(FeedBackViewModel feedBackViewModel)
+		{
+
+			var feedback = FeedBackConfigure.FeedBackViewModeltoFeedBack(feedBackViewModel);
+			FeedbackManager.UpdateFeedBack(feedback);
+
+			return Json( JsonRequestBehavior.AllowGet); ;
+		}
+
 		[HttpGet]
 		public ActionResult Edit(Guid id)
 		{
@@ -62,15 +72,12 @@ namespace Medacs.Areas.Admin.Controllers
 		{
 			var feebackList = FeedbackManager.GetFeedBacks();
 			var feebackViewList = FeedBackConfigure.FeedbackListtoFeedBackViewModelsList(feebackList);
-			return Json(new { feebackViewList}, JsonRequestBehavior.AllowGet);
-
-
+			return Json(new {feebackViewList}, JsonRequestBehavior.AllowGet);
 		}
-		
+
 		[HttpPost]
 		public JsonResult AddFeedBackSection(FeedBackSectionViewModel feedBackSectionViewModel)
 		{
-
 			var feedBackSection = FeedBackConfigure.FeedBackSectionVewModeltoFeedBackSection(feedBackSectionViewModel);
 			FeedbackManager.AddFeedBackSection(feedBackSection);
 			return Json(new object {}, JsonRequestBehavior.AllowGet);;
@@ -113,14 +120,20 @@ namespace Medacs.Areas.Admin.Controllers
 		[HttpGet]
 		public JsonResult GetOptionGroup()
 		{
-			var optionGroupList = FeedbackManager.GetOptionGroup();
-			return Json(new { OptionGroupList = optionGroupList }, JsonRequestBehavior.AllowGet);
+			var OptionGroupList = FeedbackManager.GetOptionGroup();
+			return Json(new { OptionGroupList }, JsonRequestBehavior.AllowGet);
 		}
 		[HttpGet]
 		public JsonResult GetInputTypes()
 		{
-			var inputTypesList= FeedbackManager.GetInputTypes();
-			return Json(new { InputTypesList = inputTypesList }, JsonRequestBehavior.AllowGet);
+			var InputTypesList = FeedbackManager.GetInputTypes();
+			return Json(new { InputTypesList = InputTypesList.ToList()}, JsonRequestBehavior.AllowGet);
+		}
+		[HttpGet]
+		public JsonResult GetQuestionBySection(Guid id)
+		{
+			var listofQuestion = FeedbackManager.GetQuestionbySection(id);
+			return Json(new { listofQuestion }, JsonRequestBehavior.AllowGet);
 		}
 
 	}

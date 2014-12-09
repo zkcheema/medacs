@@ -1,0 +1,96 @@
+﻿
+@*@{
+    ViewBag.Title = "FeedBackUser";
+    Layout = "~/Views/_ViewStart.cshtml";
+}*@
+
+<div ng-controller="FeedBackUser">
+    <h2>User</h2>
+
+    <p><a href="#AddFeedBackUser" data-toggle="modal" class="btn btn-primary btn-large">AddUser</a></p>
+    <table class="table">
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Profession
+            </th>
+            <th></th>
+        </tr>
+
+        <tr ng-repeat=" feedBackUser in feedBackUsers">
+            
+            <td>
+                {{feedBackUser.FirstName}}
+            </td>
+            <td>
+                {{feedBackUser.LastName}}
+
+            </td>
+            <td>
+                {{feedBackUser.Email}}
+
+            </td>
+            
+            <td>
+                {{feedBackUser.Profession}}
+
+            </td>
+
+            <td>
+                <a href="" ng-click="DeleteFeedBackUser(feedBackUser)">Delete</a>|
+            </td>
+
+            <td>
+                <a id="FeedBack" data-toggle="modal" href='#EditFeedBackUser' ng-click="editFeedBack(feedBackUser)">Update</a> 
+            </td>
+
+            <td>
+                <a id="ResendEmail"  href='' ng-click="SendEmail(feedBackUser)">Send Email</a>
+            </td>
+        </tr>
+    </table>
+
+    <div class="modal fade" id="AddFeedBackUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderPartial("AddFeedBackUser");}
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    
+    
+    <div class="modal fade" id="EditFeedBackUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderPartial("EditFeedBackUser");}
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+</div>
+
+

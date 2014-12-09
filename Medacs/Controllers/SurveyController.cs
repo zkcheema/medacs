@@ -16,13 +16,14 @@ namespace Medacs.Controllers
 		//
         // GET: /FeedBack/
 		[HttpGet]
-        public ActionResult ViewFeedBack()
+        public ActionResult ViewFeedBack(string Code)
 		{
 			var feedbackId = Guid.Parse("4FEE0E81-ED4A-E411-ADD7-001999EF2DC2");
 			var feedback =FeedbackManager.GetFeedBackById(feedbackId);
 			var question = feedback.FeedBackSection.Select(a => a.Questions).ToList();
-			
 			return View("FeedBackView",feedback);
         }
+
+
 	}
 }

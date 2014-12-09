@@ -75,5 +75,15 @@ namespace Medacs.Core.Managers
 		{
 		 return	FeedBackRepository.GetQuestionBySection(id);
 		}
+
+		public void UpdateFeedBack(FeedBack feedback)
+		{
+			 FeedBackRepository.UpdateFeedBack(feedback);
+		}
+
+		public string GetLatestCodeForFeedBack(Guid Id)
+		{
+			return FeedBackRepository.GetLatestCodeForFeedBack(Id);
+		}
 	}
 }

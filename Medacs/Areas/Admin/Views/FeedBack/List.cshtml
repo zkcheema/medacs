@@ -42,9 +42,27 @@
             {{feedBack.IsOpen}}
         </td>
         <td>
-            <a href='/Admin/FeedBack/Edit/{{feedBack.Id}}'>Edit</a> |
-                   </td>
+            <a id="FeedBack" data-toggle="modal" href='#EditFeedBack' ng-click="editFeedBack(feedBack)">Edit</a> |</td>
     </tr>
 
 
 </table>
+
+
+<div class="modal fade" id="EditFeedBack">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("EditFeedBack");
+                }
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

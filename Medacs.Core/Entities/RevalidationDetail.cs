@@ -16,6 +16,9 @@ namespace Medacs.Core.Entities
 		public virtual RevalidationTimeline RevalidationTimeline { get; set; }
 		public virtual Guid RevalidationTimeLineId { get; set; }
 		public string HexCode { get; set; }
+		public int Code { get; set; }
+		public bool EmailSent { get; set; }
+		
 
 
 

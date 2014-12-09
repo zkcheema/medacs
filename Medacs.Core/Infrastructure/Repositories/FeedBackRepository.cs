@@ -11,17 +11,18 @@ using Ninject;
 
 namespace Medacs.Core.Infrastructure.Repositories
 {
-	public class FeedBackRepository :IFeedBack
+	public class FeedBackRepository : IFeedBack
 	{
 		[Inject]
 		public IMedacsDbContext DbContext { get; set; }
+
 		public void AddFeedBack(FeedBack feedBack)
 		{
 			try
 			{
 				DbContext.FeedBacks.Add(feedBack);
 				DbContext.SaveChanges();
-				}
+			}
 			catch (Exception exception)
 			{
 				throw new Exception("Unable to add Feedback entity", exception);
@@ -35,7 +36,25 @@ namespace Medacs.Core.Infrastructure.Repositories
 
 		public void UpdateFeedBack(FeedBack feedBack)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var existingfeedback = DbContext.FeedBacks.Select(f => f).FirstOrDefault(a => a.Id.Equals(feedBack.Id));
+				if (existingfeedback != null)
+				{
+					existingfeedback.FeedBackName = feedBack.FeedBackName;
+					existingfeedback.Description = feedBack.Description;
+					existingfeedback.StartDateTime = feedBack.StartDateTime;
+					existingfeedback.IsOpen = feedBack.IsOpen;
+					existingfeedback.Instruction = feedBack.Instruction;
+					existingfeedback.OtherInformation = feedBack.OtherInformation;
+					DbContext.SaveChanges();
+				}
+			}
+			catch (Exception exception)
+			{
+				throw new Exception("Unable to Update Feedback entity", exception);
+			}
+
 		}
 
 		public List<FeedBack> GetFeedBacks()
@@ -50,7 +69,7 @@ namespace Medacs.Core.Infrastructure.Repositories
 
 		public FeedBack GetFeedBackById(Guid id)
 		{
-			return DbContext.FeedBacks.Include(a=>a.FeedBackSection).Select(fb=>fb).FirstOrDefault(a=>a.Id.Equals(id));
+			return DbContext.FeedBacks.Include(a => a.FeedBackSection).Select(fb => fb).FirstOrDefault(a => a.Id.Equals(id));
 		}
 
 		public void AddFeedBackSection(FeedBackSection feedBackSection)
@@ -62,15 +81,15 @@ namespace Medacs.Core.Infrastructure.Repositories
 			}
 			catch (Exception exception)
 			{
-				throw new Exception("Uaable to Add FeedBackSecstion",exception);
+				throw new Exception("Uaable to Add FeedBackSecstion", exception);
 			}
 		}
 
 		public List<FeedBackSection> GetFeedBackSection(Guid id)
 		{
-		var result	=from fs in DbContext.FeedBackSections.Include(q=>q.Questions)
-			where fs.FeedBackId == id
-			select fs;
+			var result = from fs in DbContext.FeedBackSections.Include(q => q.Questions)
+				where fs.FeedBackId == id
+				select fs;
 			return result.ToList();
 
 		}
@@ -86,9 +105,10 @@ namespace Medacs.Core.Infrastructure.Repositories
 			catch (Exception exception)
 			{
 
-				throw new Exception("Uaable to Add Option Group", exception); ;
+				throw new Exception("Uaable to Add Option Group", exception);
+				;
 			}
-			
+
 
 		}
 
@@ -96,15 +116,16 @@ namespace Medacs.Core.Infrastructure.Repositories
 		{
 			try
 			{
-				var inputTypeExist =DbContext.InputTypes.Select(a => a.InputTypeName.Equals(inputType.InputTypeName)).FirstOrDefault();
-				if(!inputTypeExist)
-				DbContext.InputTypes.Add(inputType);
+				var inputTypeExist =
+					DbContext.InputTypes.Select(a => a.InputTypeName.Equals(inputType.InputTypeName)).FirstOrDefault();
+				if (!inputTypeExist)
+					DbContext.InputTypes.Add(inputType);
 
 			}
 			catch (Exception exception)
 			{
 
-				throw new Exception("Uaable to Add inputTypes", exception); 
+				throw new Exception("Uaable to Add inputTypes", exception);
 			}
 		}
 
@@ -122,13 +143,13 @@ namespace Medacs.Core.Infrastructure.Repositories
 			catch (Exception exception)
 			{
 
-				throw new Exception("Uaable to Add Option Choices", exception); 
+				throw new Exception("Uaable to Add Option Choices", exception);
 			}
-			}
+		}
 
 		public List<OptionGroup> GetOptionGroups()
 		{
-			return  DbContext.OptionGroups.Select(a => a).ToList();
+			return DbContext.OptionGroups.Include(a => a.OptionChoices).Select(a => a).ToList();
 		}
 
 		public List<InputType> GetInputTypes()
@@ -146,27 +167,40 @@ namespace Medacs.Core.Infrastructure.Repositories
 			}
 			catch (Exception exception)
 			{
-				throw new Exception("Uaable to Add Questions", exception); 
-				
+				throw new Exception("Uaable to Add Questions", exception);
+
 			}
 		}
 
 		public List<Question> GetQuestionBySection(Guid id)
 		{
 
-
-			var result = from fb in DbContext.FeedBacks.Include(a => a.FeedBackSection)
-				join fbs in DbContext.FeedBackSections on fb.Id equals fbs.FeedBackId
-				where fb.Id.Equals(id)
-				select fb.FeedBackSection;
-
-
-			return null;
-		
-					
-			
+			return
+				DbContext.Questions.Select(a => a)
+					.Include(a => a.OptionGroup)
+					.Include(b => b.InputType)
+					.Include(o => o.OptionGroup.OptionChoices)
+					.Where(q => q.FeedBackSectionId.Equals(id))
+					.ToList();
 
 		}
-	}
-	}
 
+		public string GetLatestCodeForFeedBack(Guid id)
+		{
+			return (from c in DbContext.FeedBacks where c.Id == id select c.LatestCode).FirstOrDefault();
+		}
+
+		public int RecordLatestCode(Guid feedBackid, string nextNumber)
+		{
+			var feedBack =
+		  (from i in DbContext.FeedBacks where i.Id == feedBackid select i).FirstOrDefault();
+
+			if (feedBack == null)return 0;
+
+			feedBack.LatestCode = nextNumber;
+			DbContext.SaveChanges();
+
+			return 1;
+		}
+	}
+}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace Medacs.Core.Entities
 		public string FeedBackName { get; set; }
 		public string OtherInformation { get; set; }
 		public bool IsOpen { get; set; }
+		public string LatestCode { get; set; }
 		public virtual Organization Organization { get; set; }
 		public virtual ICollection<FeedBackSection> FeedBackSection { get; set; }
 		
