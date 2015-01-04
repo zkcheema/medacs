@@ -9,6 +9,6 @@ namespace Medacs.Core.Infrastructure.Interfaces
 {
 	public interface IEmail
 	{
-		bool SendEmail(string subject, FeedBackUser feedBackUser, string html);
+		bool SendEmail(string subject, string firstname, string lastname, string email, string html);
 	}
 }

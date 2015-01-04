@@ -24,7 +24,13 @@
 
             questionForm.FeedBackSectionId = angular.element(document.getElementsByName('FeedBackSectionId')[0]).val();
 
-            feedBackService.AddQestion(questionForm).success(function (result) {
+            feedBackService.AddQestion(questionForm).success(function (data) {
+
+                feedBackService.GetQuestionBySection($scope.feesbackSectionId).success(function (result) {
+
+                    $scope.QuestionList = result.listofQuestion;
+
+                });
 
             });
         };

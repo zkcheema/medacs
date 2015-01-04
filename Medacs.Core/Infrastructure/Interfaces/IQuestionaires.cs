@@ -14,5 +14,6 @@ namespace Medacs.Core.Infrastructure.Interfaces
 		void UpdateQuestions(Question feedBack);
 		Question GetBack();
 		Question GetQuestionbyId(Guid id);
+		List<Question> GetQuestions();
 	}
 }

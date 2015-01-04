@@ -19,6 +19,7 @@ namespace Medacs.Configure
 			feedBackUser.FirstName = feedBackUserViewModel.FirstName;
 			feedBackUser.LastName = feedBackUserViewModel.LastName;
 			feedBackUser.Profession = feedBackUserViewModel.Profession;
+			feedBackUser.FeedBackUserType = feedBackUserViewModel.FeedBackUserType;
 			return feedBackUser;
 		}
 
@@ -41,6 +42,28 @@ namespace Medacs.Configure
 			surveyLinkEmailViewModel.Url = url;
 			surveyLinkEmailViewModel.FeedBackUserEmail = feedBackViewModel.Email;
 			return surveyLinkEmailViewModel;
+		}
+
+
+		public static List<FeedBackUserViewModel> FeedBackUsertoFeedBackUserViewModel(List<FeedBackUser> feedBackUsers)
+		{
+			 var feedbackUserviewModelList = new List<FeedBackUserViewModel>();
+
+			foreach (var feedBackUser in feedBackUsers)
+			{
+				var feedbackUserViewModel = new FeedBackUserViewModel();
+
+				feedbackUserViewModel.Id = feedBackUser.Id;
+				feedbackUserViewModel.FirstName = feedBackUser.FirstName;
+				feedbackUserViewModel.LastName = feedBackUser.LastName;
+				feedbackUserViewModel.Profession = feedBackUser.Profession;
+				feedbackUserViewModel.Email = feedBackUser.Email;
+				feedbackUserViewModel.FeedBackUserType = feedBackUser.FeedBackUserType;
+				feedbackUserViewModel.FeedBackUserGroup= feedBackUser.FeedbackUserGroup;
+				feedbackUserviewModelList.Add(feedbackUserViewModel);
+
+			}
+			return feedbackUserviewModelList;
 		}
 	}
 }

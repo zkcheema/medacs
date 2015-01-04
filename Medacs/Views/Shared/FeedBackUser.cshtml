@@ -1,9 +1,4 @@
 ﻿
-@*@{
-    ViewBag.Title = "FeedBackUser";
-    Layout = "~/Views/_ViewStart.cshtml";
-}*@
-
 <div ng-controller="FeedBackUser">
     <h2>User</h2>
 
@@ -25,8 +20,8 @@
             <th></th>
         </tr>
 
-        <tr ng-repeat=" feedBackUser in feedBackUsers">
-            
+        <tr ng-repeat=" feedBackUser in feedBackUsersColleague">
+
             <td>
                 {{feedBackUser.FirstName}}
             </td>
@@ -38,7 +33,7 @@
                 {{feedBackUser.Email}}
 
             </td>
-            
+
             <td>
                 {{feedBackUser.Profession}}
 
@@ -49,11 +44,11 @@
             </td>
 
             <td>
-                <a id="FeedBack" data-toggle="modal" href='#EditFeedBackUser' ng-click="editFeedBack(feedBackUser)">Update</a> 
+                <a id="FeedBack" data-toggle="modal" href='#EditFeedBackUser' ng-click="editFeedBack(feedBackUser)">Update</a>
             </td>
 
             <td>
-                <a id="ResendEmail"  href='' ng-click="SendEmail(feedBackUser)">Send Email</a>
+                <a id="ResendEmail" href='' ng-click="SendEmail(feedBackUser)">Send Email</a>
             </td>
         </tr>
     </table>
@@ -73,7 +68,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
-    
     
     <div class="modal fade" id="EditFeedBackUser">
         <div class="modal-dialog">

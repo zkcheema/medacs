@@ -7,28 +7,27 @@
             </div>
                 <div class="input-group">
                     <input type="text" name="Firstname" ng-model="feedBackUser.FirstName" class="form-control " placeholder="FirstName" required />
-                    <span ng-show="feedBackUser.Firstname.$dirty && feedBackUser.Firstname.$error.required">Required!</span>
+                    <span ng-show="Submitted && feedBackUser.Firstname.$error.required">Required!</span>
                 </div>
-   
                 <div class="input-group">
                     <input type="text" name="Lastname" ng-model="feedBackUser.LastName" class="form-control " placeholder="LastName" required />
-                    <span ng-show="feedBackUser.Lastname.$dirty && feedBackUser.Lastname.$error.required">Required!</span>
+                    <span ng-show="Submitted && feedBackUser.Lastname.$error.required">Required!</span>
                 </div>
                 <div class="input-group">
                     <input type="email" name="email" ng-model="feedBackUser.Email" placeholder="Email" class="form-control " required />
                 </div>
             <span ng-show="feedBackUser.email.$dirty && feedBackUser.email.$invalid">
-                <span ng-show="feedBackUser.email.$error.required">Email is required.</span>
+                <span ng-show="Submitted && feedBackUser.email.$error.required">Email is required.</span>
                 <span ng-show="feedBackUser.email.$error.email">Invalid email address.</span>
             </span>
             <span ng-show="message ==='Email Already Exist'">{{message}}</span>
             <div class="input-group">
-                    <select ng-model="feedBackUser.Profession" ng-options="item for item in professionList" class="form-control ">
-                        <option value="">Select Profession</option>
-
-                    </select>
-                </div>
-                <input type="button" value="Add" ng-click="AddFeedBackUser(feedBackUser)" />
+                <select ng-model="feedBackUser.Profession" ng-options="item for item in professionList" class="form-control ">
+                    <option value="">Select Profession</option>
+                </select>
+            </div>
+            <input type="text" name="userType" ng-model="feedbackUser.FeedBackUserType" style="display: none;" />
+                <input type="button" value="Add" ng-click="AddFeedBackUser(feedBackUser,'colleague')" />
                 <button ng-click="reset()">RESET</button>
            
             

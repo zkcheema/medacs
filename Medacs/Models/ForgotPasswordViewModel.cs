@@ -8,5 +8,6 @@ namespace Medacs.Models
 	public class ForgotPasswordViewModel
 	{
 		public string Email { get; set; }
+		public string code { get; set; }
 	}
 }

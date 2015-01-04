@@ -18,8 +18,9 @@ namespace Medacs.Core.Entities
 		public string OtherInformation { get; set; }
 		public bool IsOpen { get; set; }
 		public string LatestCode { get; set; }
-		public virtual Organization Organization { get; set; }
-		public virtual ICollection<FeedBackSection> FeedBackSection { get; set; }
+		public virtual Guid OrganizationId { get; set; }
+		public  Organization Organization { get; set; }
+		public  ICollection<FeedBackSection> FeedBackSection { get; set; }
 		
 	}
 }

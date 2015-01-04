@@ -2,18 +2,26 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Medacs.Core.Managers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Medacs.Models;
 using Microsoft.Owin.Security.DataProtection;
+using Microsoft.Owin.Security.Twitter.Messages;
+using Ninject;
 
 namespace Medacs.Controllers
 {
+	
     [Authorize]
     public class AccountController : Controller
     {
+		[Inject]
+	public EmailManager EmailManager { get; set; } 
+
+
 		public AccountController()
 			: this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
 		{
@@ -25,6 +33,7 @@ namespace Medacs.Controllers
 			UserManager = userManager;
 
 			var provider = new DpapiDataProtectionProvider("Medacs");
+			
 			UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, string>(provider.Create("UserToken"))
 				as IUserTokenProvider<ApplicationUser, string>;
 			UserManager.EmailService = new EmailService();
@@ -54,7 +63,7 @@ namespace Medacs.Controllers
         [HttpPost]
         [AllowAnonymous]
 		//[ValidateAntiForgeryToken]
-        public async Task<JsonResult> Login(LoginViewModel model)
+		public async Task<JsonResult> Login(LoginViewModel model, string returnUrl)
         {
         
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
@@ -106,11 +115,16 @@ namespace Medacs.Controllers
 	                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 				
 				var callbackUrl = Url.Action("ConfirmEmail", "Account",new { userId = user.Id, code = code },protocol: Request.Url.Scheme);
+					var callback = new CallBackViewModel(){CallBackUrl = callbackUrl};
 
+
+				var emailHtml = Utility.Render(ControllerContext, "~/Views/Mailer/RegistrationMail.cshtml", callback);
+	                
 	                try
 	                {
-		                await UserManager.SendEmailAsync(user.Id, "Confirm your account",
-				                "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+		                
+						EmailManager.SendEmail("Registration", user.FirstName, user.LastName, user.Email, emailHtml);
+
 	                }
 	                catch (Exception exception)
 	                {
@@ -169,7 +183,11 @@ namespace Medacs.Controllers
 				var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
 				var callbackUrl = Url.Action("ResetPassword", "Account",
 				new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
-				await UserManager.SendEmailAsync(user.Id, "Reset Password","Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+				var callback = new CallBackViewModel() {CallBackUrl = callbackUrl};
+				var emailHtml = Utility.Render(ControllerContext, "~/Views/Mailer/ForgotPasswordMail.cshtml", callback);
+
+				EmailManager.SendEmail("Forgotten Password", user.FirstName, user.LastName, user.Email, emailHtml);
+				//await UserManager.SendEmailAsync(user.Id, "Reset Password","Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
 				return View("ConfirmPassword");
 			}
 
@@ -185,20 +203,36 @@ namespace Medacs.Controllers
 			{
 				return View("Error");
 			}
-			var result = await UserManager.ConfirmEmailAsync(userId, code);
 			
-			if (result.Succeeded)
-			{
+			var result = await  UserManager.FindByIdAsync(userId);
 
-				var user =UserManager.FindById(userId);
-				var forgotPasswordConfirmationViewModel = new ForgotPasswordViewModel();
-				forgotPasswordConfirmationViewModel.Email = user.Email;
-				return View("ForgotPasswordConfirmation",forgotPasswordConfirmationViewModel);
+		
+			if (result.Email != null)
+			{
+				var manageuserViewModel = new ManageUserViewModel();
+				manageuserViewModel.Email = result.Email;
+				manageuserViewModel.code = code;
+				return View("ForgotPasswordConfirmation", manageuserViewModel);
 			}
-			AddErrors(result);
-			return View();
+			//AddErrors(result);
+			return View("PasswordChangeFailure");
 
 		    
+	    }
+		[HttpPost]
+		[AllowAnonymous]
+	    public async Task<ActionResult> ResetPassword(ManageUserViewModel manageUserViewModel)
+		{
+			var user =UserManager.FindByEmail(manageUserViewModel.Email);
+
+			var result = await UserManager.ResetPasswordAsync(user.Id, manageUserViewModel.code,manageUserViewModel.NewPassword);
+
+
+			if (result.Succeeded)
+			{
+				return View("PasswordChangeSuccessfull");
+			}
+			return View("PasswordChangeFailure");
 	    }
 
 

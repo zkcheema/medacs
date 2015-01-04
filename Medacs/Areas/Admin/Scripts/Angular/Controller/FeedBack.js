@@ -1,9 +1,10 @@
 ﻿MedacsAdmin.controller('FeedBack', ['$scope', '$http', 'feedBackService', function($scope, $http, feedBackService) {
         
-        $scope.items = [{ id: 1, name: 'CheckBox' }, { id: 2, name: 'RadioButton' }, { id: 3, name: 'TextBox' }];
+    $scope.items = [{ id: 1, name: 'CheckBox' }, { id: 2, name: 'RadioButton' }, { id: 3, name: 'TextBox' }, { id: 4, name: 'Label' }];
         $scope.InputTypeName = null;
 
-        $scope.feedbackId = "4FEE0E81-ED4A-E411-ADD7-001999EF2DC2";
+        $scope.feedbackId = angular.element(document.getElementsByName('FeedBackId')[0]).val();
+       
 
     $scope.feesbackSectionId = angular.element(document.getElementsByName('FeedBackSectionId')[0]).val();
 

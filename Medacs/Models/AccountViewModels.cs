@@ -12,7 +12,10 @@ namespace Medacs.Models
 
     public class ManageUserViewModel
     {
-        [Required]
+		public string Email { get; set; }
+		public string code { get; set; }
+        
+		[Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
@@ -88,6 +91,13 @@ namespace Medacs.Models
 				Title = "Nurse"
 			}
 		};
+	}
+
+	public class CallBackViewModel
+	{
+		public string UserId { get; set; }
+		public string Code { get; set; }
+		public string CallBackUrl { get; set; }
 	}
 
 

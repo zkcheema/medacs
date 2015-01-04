@@ -16,23 +16,34 @@ using Ninject;
 
 namespace Medacs.Controllers
 {
-    public class SetupController : Controller
+	[Authorize(Roles = "user,admin")]
+	public class SetupController : Controller
     {
 		[Inject]
 		public EmailManager EmailManager  { get; set; }
 		[Inject]
 		public SetupManager SetupManager { get; set; }
-		// GET: Setup
+		[Inject]
+		public FeedbackManager FeedbackManager { get; set; }
 		[Inject]
 		public RevalidationDetailManager RevalidationDetailManager { get; set; }
 	
 		[HttpGet]
-        public ActionResult SetupSurvey()
+        public ActionResult SetupSurvey(string id)
         {
+			if (id.ToLower() == "Colleague".ToLower())
+			{
+				return View("~/Views/Survey/Configure.cshtml");
+			}
+			else
+			{
+				return View("~/Views/Survey/ConfigurePatient.cshtml");
 
-            return View("~/Views/Survey/Configure.cshtml");
+				
+			}
+			
         }
-		
+
 		
 		[HttpPost]
 		public JsonResult SetupUser(FeedBackUserViewModel feedBackUserViewModel)
@@ -40,14 +51,17 @@ namespace Medacs.Controllers
 			var feedBackuser= FeedBackSetupConfigure.FeedBackUserViewModeltoFeedBackUser(feedBackUserViewModel);
 			feedBackuser.UserId = SetupManager.GetFeedBackUserid(Guid.Parse(User.Identity.GetUserId()));
 			SetupManager.InsertFeedBackUser(feedBackuser);
+
+
 			return Json(new { result = "Success"}, JsonRequestBehavior.AllowGet);
 		}
 		[HttpGet]
-		public JsonResult GetFeedBackUser()
+		public JsonResult GetFeedBackUserColleague()
 		{
 			var userId=SetupManager.GetFeedBackUserid(Guid.Parse(User.Identity.GetUserId()));
 
-			 var result = SetupManager.GetFeedBackUser(userId);
+			var feedbackList = SetupManager.GetFeedBackUser(userId, "Colleague".ToLower());
+			var result = FeedBackSetupConfigure.FeedBackUsertoFeedBackUserViewModel(feedbackList);
 
 			if (result != null)
 			{
@@ -56,6 +70,24 @@ namespace Medacs.Controllers
 
 			return Json(new { result = "failed", feedBackUserList = result }, JsonRequestBehavior.AllowGet);
 		}
+
+		[HttpGet]
+		public JsonResult GetFeedBackUserPatient()
+		{
+			var userId = SetupManager.GetFeedBackUserid(Guid.Parse(User.Identity.GetUserId()));
+
+			var feedbackList = SetupManager.GetFeedBackUser(userId,"patient".ToLower());
+			var result=FeedBackSetupConfigure.FeedBackUsertoFeedBackUserViewModel(feedbackList);
+
+
+			if (result != null)
+			{
+				return Json(new { result = "Success", feedBackUserList = result }, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new { result = "failed", feedBackUserList = result }, JsonRequestBehavior.AllowGet);
+		}
+
 		[HttpGet]
 	    public JsonResult CheckEmailExist(string email)
 	    {
@@ -105,37 +137,45 @@ namespace Medacs.Controllers
 			var feedBackuser = FeedBackSetupConfigure.FeedBackUserViewModeltoFeedBackUser(feedBackUserViewModel);
 
 			var result = SetupManager.UpdateFeeBackUser(id, feedBackuser);
-			if (result)
-			{
+		if (result)
+			{ 
 				return Json(new { result = "Success" }, JsonRequestBehavior.AllowGet);
 			}
 
 			return Json(new { result = "failed" }, JsonRequestBehavior.AllowGet);
 		}
 
-	    public JsonResult SendEmail(FeedBackUserViewModel feddBackUserViewModel)
+	    public JsonResult SendEmail(FeedBackUserViewModel feedBackUserViewModel)
 	    {
 				var manager = new UserManager();
 				var user =manager.FindById(User.Identity.GetUserId());
-				var feedBackuser=SetupManager.GetFeedBackUserbyId(feddBackUserViewModel.Id);
+				var feedBackuser=SetupManager.GetFeedBackUserbyId(feedBackUserViewModel.Id);
 				// Later on When order Details are available we we will pull the FeedBackId from there 
 				// For the moment we are pulling it from config as we now we have only one feedBack.
-				var colleagueFeedBackId = ConfigurationManager.AppSettings["ColleagueFeedBackId"];
+		    var feedBack = FeedbackManager.GetFeedBackByName(feedBackUserViewModel.FeedBackUserType.ToLower());
+
+				//var colleagueFeedBackId = feedback.Id.ToString();//ConfigurationManager.AppSettings["ColleagueFeedBackId"];
+
+				//var feedBack =FeedbackManager.GetFeedBackById(Guid.Parse(colleagueFeedBackId));
 				var revalidationdetail = new RevalidationDetail();
 				revalidationdetail.FeedBackUserId = feedBackuser.Id;
+				revalidationdetail.FeedBackId = feedBack.Id;
+				revalidationdetail.StartDateTime = DateTime.Now;
+				revalidationdetail.EndDateTime = DateTime.Now.AddYears(1);
 				revalidationdetail.HexCode = SetupManager.GenerateRandomHexCode();
-				revalidationdetail.Code =int.Parse(SetupManager.GenerateRandomCode(Guid.Parse(colleagueFeedBackId)));
+				revalidationdetail.Code =int.Parse(SetupManager.GenerateRandomCode(feedBack.Id));
 				var codeAsHex = SetupManager.GenerateLink(revalidationdetail.Code);
 				var url = HttpContext.Request.Url.Scheme + "://" + HttpContext.Request.Url.Authority + "/Survey/ViewFeedBack/" + HttpUtility.UrlEncodeUnicode(codeAsHex) + revalidationdetail.HexCode;
-				var surveyLink =FeedBackSetupConfigure.FeedbackViewModeltoSurveyLinkEmailViewModel(feddBackUserViewModel, user,url);
+				var surveyLink =FeedBackSetupConfigure.FeedbackViewModeltoSurveyLinkEmailViewModel(feedBackUserViewModel, user,url);
 
 				var emailHtml = Utility.Render(ControllerContext, "~/Views/Mailer/SurveryLinkMail.cshtml", surveyLink);
 
-				var eamilResult = EmailManager.SendEmail("Colleague Survey", feedBackuser, emailHtml);
+				var eamilResult = EmailManager.SendEmail("Colleague Survey", feedBackuser.FirstName,feedBackuser.LastName,feedBackuser.Email, emailHtml);
 
 		    if (eamilResult)
 		    {
-			   // revalidationdetail.EmailSent = true;
+			    revalidationdetail.EmailSent = true;
+				
 				RevalidationDetailManager.Insert(revalidationdetail);
 			    return Json(new {result = "Success"}, JsonRequestBehavior.AllowGet);
 		    }

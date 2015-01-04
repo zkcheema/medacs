@@ -13,13 +13,14 @@ namespace Medacs.Core.Infrastructure.Interfaces
 		void AddFeedBackUser(FeedBackUser feedbackuser);
 		bool Delete(Guid id);
 		Guid GetFeedBackUserid(Guid id);
-		List<FeedBackUser> GetFeedBackUser(Guid userId);
+		List<FeedBackUser> GetFeedBackUser(Guid userId,string userType);
 		bool UpdateFeedBackUser(Guid id, FeedBackUser user);
 		FeedBackUser GetFeedBackUserbyId(Guid Id);
 
 		bool CheckEmailExist(string email, Guid id);
 		bool UpdateEmail(string email, Guid id);
 		string GenerateRandomHexCode();
+		User GetUser(Guid id);
 	}
 }
 

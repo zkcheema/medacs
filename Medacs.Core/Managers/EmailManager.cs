@@ -16,13 +16,9 @@ namespace Medacs.Core.Managers
 		public IEmail EmailRepository { get; set; }
 
 
-		public bool SendEmail(string subject, FeedBackUser feedBackUser, string html)
+		public bool SendEmail(string subject,string firstName,string lastName,string email, string html)
 		{
-			return EmailRepository.SendEmail(subject,feedBackUser, html);
+			return EmailRepository.SendEmail(subject,firstName, lastName, email, html);
 		}
-
-
-
-		
 	}
 }

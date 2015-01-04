@@ -68,6 +68,7 @@ namespace Medacs
 	        kernel.Bind<IFeedBack>().To<FeedBackRepository>();
 	        kernel.Bind<IFeedBackUser>().To<FeedBackUserRepository>();
 	        kernel.Bind<IEmail>().To<EmailRepository>();
+	        kernel.Bind<IReporting>().To<ReportingRepository>();
 	        
 
         }        

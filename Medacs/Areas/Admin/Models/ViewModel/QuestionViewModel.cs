@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Medacs.Core.Entities;
 
 namespace Medacs.Areas.Admin.Models.ViewModel
 {
@@ -14,7 +15,9 @@ namespace Medacs.Areas.Admin.Models.ViewModel
 		public bool AnswerRequired { get; set; }
 		
 		public Guid InputTypeId { get; set; }
+		public InputTypeViewModel InputViewModel { get; set; }
 		public Guid OptionGroupId{get; set; }
+		public OptionGroupViewModel OptionGroupViewModel { get; set; }
 		public Guid FeedBackSectionId { get; set; }
 		
 

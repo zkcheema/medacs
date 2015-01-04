@@ -19,7 +19,7 @@ namespace Medacs.Core.Infrastructure.DataContext
 		public IDbSet<FeedBack> FeedBacks { get; set; }
 		public IDbSet<FeedBackSection> FeedBackSections { get; set; }
 		public IDbSet<InputType> InputTypes { get; set; }
-		public IDbSet<OptionChoices> OptionChoices { get; set; }
+		public IDbSet<OptionChoice> OptionChoices { get; set; }
 		public IDbSet<OptionGroup> OptionGroups { get; set; }
 		public IDbSet<Organization> Organizations { get; private set; }
 		public IDbSet<FeedBackQuestionOption> FeedBackQuestionOptions { get; set; }
@@ -35,9 +35,23 @@ namespace Medacs.Core.Infrastructure.DataContext
 			modelBuilder.Entity<FeedBack>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<FeedBackSection>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<InputType>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-			modelBuilder.Entity<OptionChoices>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			modelBuilder.Entity<OptionChoice>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<OptionGroup>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-			modelBuilder.Entity<FeedBackQuestionOption>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+			
+			modelBuilder.Entity<Question>().HasKey(q => q.Id);
+			modelBuilder.Entity<OptionChoice>().HasKey(oc => oc.Id);
+			
+			modelBuilder.Entity<FeedBackQuestionOption>()
+				.HasRequired(t => t.Question)
+				.WithMany(t => t.FeedBackQuestionOptions)
+				.HasForeignKey(t => t.QuestionId).WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<FeedBackQuestionOption>()
+				.HasRequired(t => t.OptionChoice)
+				.WithMany(t => t.FeedBackQuestionOptions)
+				.HasForeignKey(t => t.OptionChoiceId).WillCascadeOnDelete(false);
+
+
 			modelBuilder.Entity<Organization>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<Answer>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 			modelBuilder.Entity<Question>().Property(m => m.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

@@ -120,20 +120,21 @@ namespace Medacs.Areas.Admin.Controllers
 		[HttpGet]
 		public JsonResult GetOptionGroup()
 		{
-			var OptionGroupList = FeedbackManager.GetOptionGroup();
-			return Json(new { OptionGroupList }, JsonRequestBehavior.AllowGet);
+			var optionGroupList = FeedbackManager.GetOptionGroup();
+			return Json(new { OptionGroupList = optionGroupList.ToList() }, JsonRequestBehavior.AllowGet);
 		}
 		[HttpGet]
 		public JsonResult GetInputTypes()
 		{
-			var InputTypesList = FeedbackManager.GetInputTypes();
-			return Json(new { InputTypesList = InputTypesList.ToList()}, JsonRequestBehavior.AllowGet);
+			var inputTypesList = FeedbackManager.GetInputTypes();
+			return Json(new { InputTypesList = inputTypesList.ToList()}, JsonRequestBehavior.AllowGet);
 		}
 		[HttpGet]
 		public JsonResult GetQuestionBySection(Guid id)
 		{
 			var listofQuestion = FeedbackManager.GetQuestionbySection(id);
-			return Json(new { listofQuestion }, JsonRequestBehavior.AllowGet);
+
+			return Json(new { listofQuestion = listofQuestion.ToList() }, JsonRequestBehavior.AllowGet);
 		}
 
 	}

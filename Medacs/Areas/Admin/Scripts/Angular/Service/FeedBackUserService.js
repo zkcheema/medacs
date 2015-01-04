@@ -30,8 +30,12 @@ MedacsAdmin.service('feedBackUserService', ['$http', function ($http) {
     };
 
     
-    this.GetFeedBackUser = function() {
-        return $http.get('/Setup/GetFeedBackUser');
+    this.GetFeedBackUserColleague = function () {
+        return $http.get('/Setup/GetFeedBackUserColleague');
+    };
+
+    this.GetFeedBackUserPatient = function () {
+        return $http.get('/Setup/GetFeedBackUserPatient');
     };
 
     this.CheckEmailExist = function(email) {

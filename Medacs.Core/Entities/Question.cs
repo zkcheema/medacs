@@ -14,10 +14,11 @@ namespace Medacs.Core.Entities
 		public string QuestionSubText { get; set; }
 		public bool AnswerRequired { get; set; }
 		public Guid InputTypeId { get; set; }
-		public virtual InputType InputType { get; set; }
-		public Guid OptionGroupId{get; set; }
-		public virtual OptionGroup OptionGroup { get; set; }
+		public  InputType InputType { get; set; }
+		public   Guid OptionGroupId{get; set; }
+		public  OptionGroup OptionGroup { get; set; }
 		public Guid FeedBackSectionId { get; set; }
-		public virtual FeedBackSection FeedBackSection { get; set; }
+		public  FeedBackSection FeedBackSection { get; set; }
+		public ICollection<FeedBackQuestionOption> FeedBackQuestionOptions { get; set; }
 	}
 }

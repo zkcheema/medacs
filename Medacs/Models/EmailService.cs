@@ -21,7 +21,7 @@ namespace Medacs.Models
  
             email.IsBodyHtml = true;
  
-            var mailClient = new SmtpClient("smtp.live.com", 587) { Credentials = new NetworkCredential("waqashasan658@hotmail.com", ""), EnableSsl = true };
+            var mailClient = new SmtpClient("smtp.live.com", 587) { Credentials = new NetworkCredential("waqashasan658@hotmail.com", "lxn9172"), EnableSsl = true };
  
             return mailClient.SendMailAsync(email);
         }

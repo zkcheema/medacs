@@ -21,5 +21,17 @@ namespace Medacs.Core.Managers
 			RevalidationDetailsRepository.Insert(revalidationDetail);
 		}
 
+
+		public void RevalidationTimeLineInsert(RevalidationTimeline revalidationTimeline)
+		{
+
+			RevalidationDetailsRepository.RevalidationTimeLineInsert(revalidationTimeline);
+		}
+
+
+		public RevalidationDetail GetFeedBackbyHexCode(string code, string hexcode)
+		{
+			return RevalidationDetailsRepository.GetFeedBackbyHexCode(code, hexcode);
+		}
 	}
 }

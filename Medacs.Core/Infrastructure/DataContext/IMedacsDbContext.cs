@@ -15,7 +15,7 @@ namespace Medacs.Core.Infrastructure.DataContext
 	    IDbSet<FeedBack> FeedBacks { get; }
 		IDbSet<FeedBackSection> FeedBackSections{ get;}
 		 IDbSet<InputType> InputTypes{ get;}
-		 IDbSet<OptionChoices> OptionChoices{ get;}
+		 IDbSet<OptionChoice> OptionChoices { get; }
 		 IDbSet<OptionGroup> OptionGroups{ get;}
 		 IDbSet<Organization> Organizations{ get;}
 		 IDbSet<FeedBackQuestionOption> FeedBackQuestionOptions { get; }

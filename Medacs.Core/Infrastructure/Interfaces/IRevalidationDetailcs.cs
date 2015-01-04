@@ -10,5 +10,6 @@ namespace Medacs.Core.Infrastructure.Interfaces
 	public  interface IRevalidationDetailcs
 	{
 		void Insert(RevalidationDetail revalidationDetails);
+		void RevalidationTimeLineInsert(RevalidationTimeline revalidationTimeline);
 	}
 }

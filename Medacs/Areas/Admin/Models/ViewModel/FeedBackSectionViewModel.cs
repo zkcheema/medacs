@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Medacs.Core.Entities;
 
 namespace Medacs.Areas.Admin.Models.ViewModel
 {
@@ -21,6 +22,9 @@ namespace Medacs.Areas.Admin.Models.ViewModel
 		public bool SectionRequired { get; set; }
 
 		public Guid FeedBackId { get; set; }
+
+		public ICollection<QuestionViewModel> QuestionsViewModel { get; set; } 
+
 
 	}
 }

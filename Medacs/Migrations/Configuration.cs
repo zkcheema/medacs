@@ -10,7 +10,9 @@ namespace Medacs.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Medacs.Models.ApplicationDbContext";
+			
+	        AutomaticMigrationDataLossAllowed = true;
+			ContextKey = "Medacs.Models.ApplicationDbContext";
         }
 
         protected override void Seed(Medacs.Models.ApplicationDbContext context)

@@ -11,7 +11,8 @@ namespace Medacs.Core.Entities
 		public string Profession { get; set; }
 		public string PersonalizedMessage { get; set; }
 		public string FeedbackUserGroup { get; set; }
-		public virtual User User { get; set; }
-		public virtual Guid UserId { get; set; }
+		public string FeedBackUserType { get; set; }
+		public  User User { get; set; }
+		public  Guid UserId { get; set; }
 	 }
 }

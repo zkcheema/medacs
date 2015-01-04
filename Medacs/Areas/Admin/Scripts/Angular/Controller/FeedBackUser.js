@@ -25,9 +25,15 @@
     "Other: Non clin - Colleague"];
        
 
-        feedBackUserService.GetFeedBackUser().success(function(result) {
+        feedBackUserService.GetFeedBackUserColleague().success(function(result) {
 
-            $scope.feedBackUsers = result.feedBackUserList;
+            $scope.feedBackUsersColleague = result.feedBackUserList;
+
+        });
+
+        feedBackUserService.GetFeedBackUserPatient().success(function (result) {
+
+            $scope.feedBackUsersPatient = result.feedBackUserList;
 
         });
 
@@ -45,6 +51,22 @@
             });
             
         };
+
+        $scope.DeleteFeedBackUserPatient = function (feedbackUser) {
+            feedBackUserService.DeleteFeedBackUser(feedbackUser.Id).success(function (data) {
+
+                if (data.result === 'Success') {
+                    feedBackUserService.GetFeedBackUser().success(function (result) {
+
+                        return $scope.feedBackUsersPatient = result.feedBackUserList;
+
+                    });
+                }
+
+            });
+
+        };
+
 
         $scope.SendEmail = function (feedBackUser) {
             $scope.Id = feedBackUser.Id;
@@ -69,8 +91,7 @@
             $scope.LastName = feedBackUser.LastName;
             $scope.Email = feedBackUser.Email;
             $scope.Profession = feedBackUser.Profession;
-
-           
+            
         };
         
         $scope.UpdateFeedBackUser = function (firstName, lastName, email, profession) {
@@ -84,35 +105,36 @@
                 if (data.result === 'Success') {
                     feedBackUserService.GetFeedBackUser().success(function (result) {
 
-                        return $scope.feedBackUsers = result.feedBackUserList;
+                        $scope.feedBackUsers = result.feedBackUserList;
 
                     });
                   }
                });
         };
 
-        $scope.AddFeedBackUser = function (feedBackUser) {
-           
-            
+        $scope.AddFeedBackUser = function (feedBackUser,feedBackUserType) {
+            if ($scope.feedBackUser.$invalid) {
+                $scope.Submitted = true;
+                return;
+            }
+
             feedBackUserService.CheckEmailExist(feedBackUser.Email).success(function (data) {
                 if (data.result === 'failed') {
                     $scope.message = "Email Already Exist";
                     return;
                 } else {
                     $scope.message = "";
+                    feedBackUser.FeedBackUserType = feedBackUserType;
                     feedBackUserService.AddFeedBackUser(feedBackUser).success(function() {
                       
-                            feedBackUserService.GetFeedBackUser().success(function (result) {
-                                return $scope.feedBackUsers = result.feedBackUserList;
-                               });
+                            //feedBackUserService.GetFeedBackUser().success(function (result) {
+                        return $scope.feedBackUsers = feedBackUser.feedBackUserList;
+                               //});
                      });
                     
                 }
             });
-
-
-
-          
+            
         };
 
         }]);

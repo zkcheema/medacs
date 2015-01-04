@@ -17,7 +17,7 @@ namespace Medacs.Areas.Admin.Models.ViewModel
 
 	public class OptionChoicesViewModel
 	{
-		public int Id { get; set; }
+		public Guid Id { get; set; }
 		public string OptionChoiceName { get; set; }
 		
 	}

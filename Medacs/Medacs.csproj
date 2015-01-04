@@ -189,8 +189,11 @@
     <Compile Include="Areas\Admin\Models\ViewModel\FeedBackSectionViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\FeedBackViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\EditViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\InputTypeViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\OptionGroupViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\QuestionViewModel.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Models\ViewModels\SurveyViewModel.cs" />
     <Compile Include="Configure\FeedBackConfigure.cs" />
     <Compile Include="Configure\FeedBackSetupConfigure.cs" />
     <Compile Include="Configure\InputTypeName.cs" />
@@ -200,10 +203,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410281657458_InitialCreate.cs" />
-    <Compile Include="Migrations\201410281657458_InitialCreate.Designer.cs">
-      <DependentUpon>201410281657458_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -308,10 +307,21 @@
     <Content Include="Views\Shared\AddFeedBackUser.cshtml" />
     <Content Include="Views\Shared\EditFeedBackUser.cshtml" />
     <Content Include="Views\Mailer\SurveryLinkMail.cshtml" />
+    <Content Include="Views\Shared\Submit.cshtml" />
+    <Content Include="Views\Mailer\RegistrationMail.cshtml" />
+    <Content Include="Views\Mailer\ForgotPasswordMail.cshtml" />
+    <Content Include="Views\Account\PasswordChangeSuccessfull.cshtml" />
+    <Content Include="Views\Account\PasswordChangeFailure.cshtml" />
+    <Content Include="Views\Survey\ConfigurePatient.cshtml" />
+    <Content Include="Views\Shared\FeedBackUserPatient.cshtml" />
+    <Content Include="Views\Shared\AddFeedBackUserPatient.cshtml" />
+    <Content Include="Views\Shared\EditFeedBackUserPatient.cshtml" />
+    <Content Include="Views\Survey\FeedBackViewPatient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\FeedBack\" />
+    <Folder Include="Views\Report\" />
     <Folder Include="Views\Setup\" />
   </ItemGroup>
   <ItemGroup>
@@ -326,11 +336,6 @@
       <Project>{950f9f15-f041-4e8f-842c-6ed0af3c0e35}</Project>
       <Name>Medacs.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410281657458_InitialCreate.resx">
-      <DependentUpon>201410281657458_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -95,9 +95,9 @@ namespace Medacs.Core.Infrastructure.Repositories
 		}
 
 
-	public List<FeedBackUser> GetFeedBackUser(Guid userId)
+	public List<FeedBackUser> GetFeedBackUser(Guid userId,string userType)
 		{
-			return DbContext.FeedBackUsers.Select(a => a).Where(b => b.UserId.Equals(userId)).ToList();
+			return DbContext.FeedBackUsers.Select(a => a).Where(b => b.UserId.Equals(userId)).Where(u=>u.FeedBackUserType.Equals(userType)).ToList();
 		}
 
 		public bool UpdateFeedBackUser(Guid id, FeedBackUser user)
@@ -164,13 +164,17 @@ namespace Medacs.Core.Infrastructure.Repositories
 
 			return hexCode;
 		}
-
-
-
+		
 
 		public FeedBackUser GetFeedBackUserbyId(Guid Id)
 		{
 			return DbContext.FeedBackUsers.Select(a => a).FirstOrDefault(s => s.Id.Equals(Id));
+		}
+
+		public User GetUser(Guid id)
+		{
+			return DbContext.Users.Select(a => a).FirstOrDefault(s => s.UserInfoId.Equals(id));
+		
 		}
 	}
 }

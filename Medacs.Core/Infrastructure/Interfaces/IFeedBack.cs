@@ -23,7 +23,7 @@ namespace Medacs.Core.Infrastructure.Interfaces
 		Guid AddOptionGroup(OptionGroup optionGroup);
 
 		void AddInputTypes(InputType inputType);
-		void OptionChoices(List<OptionChoices> optionChoicesList);
+		void OptionChoices(List<OptionChoice> optionChoicesList);
 		List<OptionGroup> GetOptionGroups();
 		List<InputType> GetInputTypes();
 
@@ -32,5 +32,8 @@ namespace Medacs.Core.Infrastructure.Interfaces
 
 		string GetLatestCodeForFeedBack(Guid id);
 		int RecordLatestCode(Guid feedBackid, string nextNumber);
+		List<FeedBackQuestionOption> GetFeedBackOption();
+		void InsertAnswer(List<Answer> answers);
+		FeedBack GetFeedBackByName(string feedBackName);
 	}
 }

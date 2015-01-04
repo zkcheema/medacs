@@ -69,7 +69,8 @@ namespace Medacs.Core.Infrastructure.Repositories
 
 		public FeedBack GetFeedBackById(Guid id)
 		{
-			return DbContext.FeedBacks.Include(a => a.FeedBackSection).Select(fb => fb).FirstOrDefault(a => a.Id.Equals(id));
+		return DbContext.FeedBacks.Include(fs => fs.FeedBackSection.Select(q => q.Questions.Select(i => i.InputType))).Include(c=>c.FeedBackSection.Select(f=>f.Questions.Select(e=>e.OptionGroup).Select(n=>n.OptionChoice))).FirstOrDefault(a => a.Id.Equals(id));
+					
 		}
 
 		public void AddFeedBackSection(FeedBackSection feedBackSection)
@@ -129,7 +130,7 @@ namespace Medacs.Core.Infrastructure.Repositories
 			}
 		}
 
-		public void OptionChoices(List<OptionChoices> optionChoicesList)
+		public void OptionChoices(List<OptionChoice> optionChoicesList)
 		{
 			try
 			{
@@ -149,7 +150,7 @@ namespace Medacs.Core.Infrastructure.Repositories
 
 		public List<OptionGroup> GetOptionGroups()
 		{
-			return DbContext.OptionGroups.Include(a => a.OptionChoices).Select(a => a).ToList();
+			return DbContext.OptionGroups.Select(a => a).ToList();
 		}
 
 		public List<InputType> GetInputTypes()
@@ -167,7 +168,7 @@ namespace Medacs.Core.Infrastructure.Repositories
 			}
 			catch (Exception exception)
 			{
-				throw new Exception("Uaable to Add Questions", exception);
+				throw new Exception("Unable to Add Questions", exception);
 
 			}
 		}
@@ -177,9 +178,9 @@ namespace Medacs.Core.Infrastructure.Repositories
 
 			return
 				DbContext.Questions.Select(a => a)
-					.Include(a => a.OptionGroup)
-					.Include(b => b.InputType)
-					.Include(o => o.OptionGroup.OptionChoices)
+					//.Include(a => a.OptionGroup)
+					//.Include(b => b.InputType)
+					//.Include(o => o.OptionGroup.OptionChoices)
 					.Where(q => q.FeedBackSectionId.Equals(id))
 					.ToList();
 
@@ -201,6 +202,36 @@ namespace Medacs.Core.Infrastructure.Repositories
 			DbContext.SaveChanges();
 
 			return 1;
+		}
+
+		public List<FeedBackQuestionOption> GetFeedBackOption()
+		{
+			return DbContext.FeedBackQuestionOptions.Include(c=>c.OptionChoice).Include(q=>q.Question).Select(a => a).ToList();
+		}
+
+		public void InsertAnswer(List<Answer> answers)
+		{
+			foreach ( var answer in answers)
+			{
+				try
+				{
+				
+					DbContext.Answers.Add(answer);
+					DbContext.SaveChanges();
+				}
+				catch (Exception exception)
+				{
+					throw new Exception("Unable to Add Answer", exception);
+					
+				}
+				
+
+			}
+		}
+
+		public FeedBack GetFeedBackByName(string feedBackName)
+		{
+			return DbContext.FeedBacks.Include(fbs=>fbs.FeedBackSection.Select(q=>q.Questions.Select(i=>i.InputType))).Select(a=>a).FirstOrDefault(f => f.FeedBackName.ToLower().Equals(feedBackName));
 		}
 	}
 }

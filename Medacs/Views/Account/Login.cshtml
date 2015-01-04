@@ -11,21 +11,24 @@
             <section id="loginForm">
 
                 <form name="LoginForm" novalidate>
-
+                    @Html.AntiForgeryToken()
                     <h4>Use a local account to log in.</h4>
                     <hr />
 
                     <div class="form-group">
                         <label class="control-label col-md-2" for="codesstandalone">User Name</label>
                         <div class="col-md-10">
-                            <input type="text" id="UserName" name="LoginUserName" ng-model="LoginForm.UserName" placeholder="Name" />
+                            <input type="text" id="UserName" name="LoginUserName" ng-model="LoginForm.UserName" placeholder="Name" required/>
+                            <span ng-show="Submitted && LoginForm.LoginUserName.$error.required">UserName Required!</span>
+
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2" for="codesstandalone">Password</label>
                         <div class="col-md-10">
-                            <input type="password" id="Password" name="LoginPassword" ng-model="LoginForm.Password" placeholder="Password" />
+                            <input type="password" id="Password" name="LoginPassword" ng-model="LoginForm.Password" placeholder="Password"  required/>
+                            <span ng-show="Submitted && LoginForm.LoginPassword.$error.required">Password Required!</span>
                         </div>
                     </div>
 

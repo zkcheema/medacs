@@ -20,6 +20,11 @@ namespace Medacs.Core.Managers
 			QuesitonRepository.AddQuestions(question);
 		}
 
+		public List<Question> GetQuestions()
+		{
+			return QuesitonRepository.GetQuestions();
+		}
+
 
 	}
 }

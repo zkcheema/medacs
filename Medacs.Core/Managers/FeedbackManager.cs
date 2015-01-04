@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using Medacs.Core.Entities;
@@ -13,6 +14,9 @@ namespace Medacs.Core.Managers
 	{
 		[Inject]
 		public IFeedBack FeedBackRepository { get; set; }
+		[Inject]
+		public IFeedBackUser FeedBackUserRepository { get; set; }
+
 
 		public void AddFeedBackRepository(FeedBack feedBack)
 		{
@@ -27,6 +31,11 @@ namespace Medacs.Core.Managers
 		public FeedBack GetFeedBackById(Guid id)
 		{
 			return FeedBackRepository.GetFeedBackById(id);
+		}
+
+		public FeedBack GetFeedBackByName(string feedBackName)
+		{
+			return FeedBackRepository.GetFeedBackByName(feedBackName);
 		}
 
 		public void AddFeedBackSection(FeedBackSection feedBackSection)
@@ -50,7 +59,7 @@ namespace Medacs.Core.Managers
 
 		}
 
-		public void AddOptionChoices(List<OptionChoices> optionChoicesList)
+		public void AddOptionChoices(List<OptionChoice> optionChoicesList)
 		{
 			FeedBackRepository.OptionChoices(optionChoicesList);
 		}
@@ -85,5 +94,22 @@ namespace Medacs.Core.Managers
 		{
 			return FeedBackRepository.GetLatestCodeForFeedBack(Id);
 		}
+
+		public List<FeedBackQuestionOption> GetFeedBackQuestionOption()
+		{
+			return FeedBackRepository.GetFeedBackOption();
+		}
+
+		public void InsertAnswer(List<Answer> answers)
+		{
+			FeedBackRepository.InsertAnswer(answers);
+		}
+
+		public User GetUser(Guid id)
+		{
+			return FeedBackUserRepository.GetUser(id);
+		}
+
+		
 	}
 }

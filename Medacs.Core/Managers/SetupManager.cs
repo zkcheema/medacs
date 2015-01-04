@@ -24,9 +24,9 @@ namespace Medacs.Core.Managers
 			FeedBackUserRepository.AddFeedBackUser(feedbackuser);
 		}
 
-		public List<FeedBackUser> GetFeedBackUser(Guid userId)
+		public List<FeedBackUser> GetFeedBackUser(Guid userId,string userType)
 		{
-			return FeedBackUserRepository.GetFeedBackUser(userId);
+			return FeedBackUserRepository.GetFeedBackUser(userId,userType);
 		}
 
 		public Guid GetFeedBackUserid(Guid id)
@@ -94,7 +94,7 @@ namespace Medacs.Core.Managers
 		public string GenerateLink(int code)
 		{
 			var codeAsNumber = code;
-			var codeAsHex = codeAsNumber.ToString("X").PadLeft(8, '0');
+			var codeAsHex = codeAsNumber.ToString("X").PadLeft(7, '0');
 			var charArray = codeAsHex.ToCharArray();
 			Array.Reverse(charArray);
 			codeAsHex = new string(charArray);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,11 @@ namespace Medacs.Core.Infrastructure.Repositories
 		public Question GetQuestionbyId(Guid id)
 		{
 			throw new NotImplementedException();
+		}
+
+		public List<Question> GetQuestions()
+		{
+			return DbContext.Questions.Include(a => a.OptionGroup).Include(c => c.OptionGroup.OptionChoice).Select(a => a).ToList();
 		}
 	}
 }

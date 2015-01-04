@@ -12,7 +12,7 @@ namespace Medacs.Core.Infrastructure.Repositories
 {
 	public class EmailRepository:IEmail
 	{
-		public bool SendEmail(string subject, FeedBackUser feedBackUser, string html)
+		public bool SendEmail(string subject, string firstname, string lastname, string email,  string html)
 		{
 			var emailmessage = new Mandrill.EmailMessage
 			{
@@ -28,8 +28,8 @@ namespace Medacs.Core.Infrastructure.Repositories
 			
 			address.Add(new EmailAddress()
 			{
-				email = feedBackUser.Email,
-				name = feedBackUser.FirstName + " " + feedBackUser.LastName,
+				email = email,
+				name = firstname + " " + lastname,
 			});
 			
 
@@ -39,7 +39,6 @@ namespace Medacs.Core.Infrastructure.Repositories
 				emailmessage.to = address;
 
 				var mandrill = new MandrillApi(ConfigurationManager.AppSettings["EmailAPIKey"], false);
-			
 				var results = mandrill.SendMessage(emailmessage);
 				foreach (var emailResult in results)
 				{

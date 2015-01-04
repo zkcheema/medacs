@@ -1,0 +1,245 @@
+﻿@model Medacs.Models.ViewModels.SurveyViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Colleague SurVey</title>
+
+</head>
+<body>
+    @using (Html.BeginForm("PostForm", "Survey", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <form name="SurveryForm">
+            @Html.HiddenFor(a => a.UrlCode, new { @Value = @Model.UrlCode })
+            <div>
+                Patient Questionnaire<br />
+                For Dr <strong> John Mathew</strong>
+            </div>
+            <table style="border: 1px solid black;">
+                <tr>
+                    <td>@Html.Raw(@Model.FeedBackViewModel.Instruction) </td>
+                </tr>
+            </table>
+            <table>
+                @{
+        int count1 = 0;
+        int count2 = 0;
+        int count3 = 0;
+        var questionaireFor = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("QuestionaireFor")).Select(a => a).ToList();
+        var scale = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("Scale")).Select(a => a).ToList();
+        var doctorRating = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("DoctorRating")).Select(a => a).ToList();
+        var doctorAgree = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("DoctorAgree")).Select(a => a).ToList();
+        var general = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("General")).Select(a => a).ToList();
+        var gender = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("GenderPatient")).Select(a => a).ToList();
+        var age = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("AgePatient")).Select(a => a).ToList();
+        
+        //var gender = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("Gender")).Select(a => a).ToList();
+        //var age = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("Age")).Select(a => a).ToList();
+        //var familiar = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("familiar")).Select(a => a).ToList();
+        //var receentFamiliar = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("ReceentFamiliar")).Select(a => a).ToList();
+        //var ethnicityHeader = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("EthnicityHeader")).Select(a => a).ToList();
+        //var ethnicity = Model.FeedBackViewModel.FeedBackSectionViewModel.Where(b => b.SectionName.Equals("Ethnicity")).Select(a => a).ToList();
+
+        foreach (var question in questionaireFor.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                <td>@question.QuestionName</td>
+                <tr></tr>
+                @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" required /></td>
+                    <td>@optionChoices.OptionChoiceName</td>
+                }
+
+            </tr>
+
+
+        }
+
+
+        foreach (var question in scale.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                <td>@question.QuestionName</td>
+            <tr></tr>
+            @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+            {
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" required /></td>
+                <td>@optionChoices.OptionChoiceName</td>
+            }
+
+            </tr>
+
+
+        }
+
+        foreach (var question in doctorRating.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                @if (count1 < question.OptionGroupViewModel.OptionChoicesViewModel.Count())
+                {
+                    foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                    {
+                        count1 = count1 + 1;
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td> @optionChoices.OptionChoiceName</td>
+                    }
+                }
+
+            </tr>
+            <tr>
+                <td>
+                    @question.QuestionName
+                </td>
+                @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" required /></td>
+
+                }
+            </tr>
+
+        }
+
+        foreach (var question in doctorAgree.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                @if (count2 < question.OptionGroupViewModel.OptionChoicesViewModel.Count())
+                {
+                    foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                    {
+                        count2 = count2 + 1;
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td> @optionChoices.OptionChoiceName</td>
+                    }
+                }
+
+            </tr>
+            <tr>
+                <td>
+                    @question.QuestionName
+                </td>
+                @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" required /></td>
+
+                }
+            </tr>
+        }
+
+        foreach (var question in general.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                <td>@question.QuestionName</td>
+                
+                @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    if(question.InputViewModel.InputTypeName != "TextBox")
+                     {
+                         <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" /></td>
+                     }
+                    else
+                    {
+                        <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id"  /></td>
+
+
+                    }
+
+                    <td>@optionChoices.OptionChoiceName</td>
+                }
+
+            </tr>
+        }
+
+        foreach (var question in gender.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                <td>@question.QuestionName</td>
+                @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" required /></td>
+
+                    <td>@optionChoices.OptionChoiceName</td>
+                }
+
+            </tr>
+
+
+        }
+
+        foreach (var question in age.SelectMany(feedbakviewModel => feedbakviewModel.QuestionsViewModel))
+        {
+            <tr>
+                <td>@question.QuestionName</td>
+                @foreach (var optionChoices in question.OptionGroupViewModel.OptionChoicesViewModel)
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="@question.InputViewModel.InputTypeName" name="@question.Id" value="@optionChoices.Id" required /></td>
+
+                    <td>@optionChoices.OptionChoiceName</td>
+                }
+
+            </tr>
+
+
+        }
+
+
+       
+                }
+            </table>
+
+            <input type="submit" value="Submit" />
+        </form>
+    }
+</body>
+
+</html>

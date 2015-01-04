@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Medacs.Core.Entities
 {
+	
 	public class FeedBackSection
 	{
 		public Guid Id { get; set; }
@@ -15,8 +17,8 @@ namespace Medacs.Core.Entities
 		public string SectionSubHeading { get; set; }
 		public bool SectionRequired { get; set; }
 		public Guid FeedBackId { get; set; }
-		public virtual FeedBack FeedBack { get; set; }
-		public virtual ICollection<Question> Questions { get; set; }
+		public  FeedBack FeedBack { get; set; }
+		public  ICollection<Question> Questions { get; set; }
 		
 		
 	}
